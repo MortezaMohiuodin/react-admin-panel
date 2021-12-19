@@ -8,3 +8,4 @@ module.exports = merge(common,{
 
 // TODO OPTIMIZATION
 // TODO make dist folder organized
+// TODO write first test for button
