@@ -20,7 +20,7 @@ export default class Button extends React.Component{
         return (
             <div>
                 <button className='button' onClick={this.handleClick.bind(this)}>click me!</button>
-                <span>{this.state.count}</span>
+                <span>{this.state.count || 0}</span>
             </div>
         ) 
     }
