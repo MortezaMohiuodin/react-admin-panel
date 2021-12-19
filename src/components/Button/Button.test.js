@@ -13,11 +13,7 @@ beforeEach(()=>{
 
 afterEach(() => {
     document.body.removeChild(container);
-
-
-
-
-                container = null;
+    container = null;
   });
   
 

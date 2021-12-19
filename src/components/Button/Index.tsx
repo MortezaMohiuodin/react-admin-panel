@@ -9,6 +9,9 @@ export default class Button extends React.Component{
     state : state 
     constructor(props : object){
         super(props)
+
+
+        
         this.state = {count:0}
     }
     handleClick(){
