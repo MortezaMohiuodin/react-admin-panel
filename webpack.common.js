@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const isDev = process.env.NODE_ENV !== "production"
 
 module.exports = {
   entry: "./src/index.js",
@@ -28,12 +30,13 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.(s[ac]ss)$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.(css|s[ac]ss)$/,
+        use: [
+          isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
       },
       {
         test: /\.(png|jp?eg|svg|webp|)$/,
@@ -46,7 +49,7 @@ module.exports = {
       title: "react typescript app",
       template: "./public/index.html",
     }),
-  ],
+  ].concat(isDev ? [] : [new MiniCssExtractPlugin()]),
 }
 
 // TODO add fonts and video
