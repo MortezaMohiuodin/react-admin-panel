@@ -12,8 +12,8 @@ const Wrapper = styled(Box)`
 `
 
 const initFormObject = {
-  email: "fdsafdsa@gmail.com",
-  password: "fdsafds",
+  email: "test@gmail.com",
+  password: "1234",
 }
 
 export default function Login() {
@@ -38,7 +38,7 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault()
     sendData(form).then(function (response) {
-      console.log(response.data)
+      console.log(response)
     })
   }
   return (

@@ -1,5 +1,3 @@
-const MockAdapter = require("axios-mock-adapter")
-
 const transformRequest = [
   function (data, headers) {
     return data
@@ -27,13 +25,6 @@ const responseInterceptorError = function (error) {
   return Promise.reject(error)
 }
 
-const initMock = (axiosInstance) => {
-  const Mock = new MockAdapter(axiosInstance)
-  Mock.onPost("/users").reply(200, {
-    users: [{ id: 1, name: "John Smith" }],
-  })
-}
-
 export {
   transformRequest,
   transformResponse,
@@ -41,5 +32,4 @@ export {
   requestInterceptorError,
   responseInterceptor,
   responseInterceptorError,
-  initMock,
 }

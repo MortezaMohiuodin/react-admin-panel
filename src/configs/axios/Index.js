@@ -1,7 +1,5 @@
 import axios from "axios"
 
-import { initMock } from "./setting"
-
 import {
   transformRequest,
   transformResponse,
@@ -22,15 +20,15 @@ const option = {
   transformRequest,
   transformResponse,
 }
-
+console.log(process.env.REACT_APP_API)
 const Axios = axios.create({
-  // baseURL: process.env.REACT_APP_API,
+  baseURL: process.env.REACT_APP_API,
   timeout: option.timeout,
   withCredentials: option.withCredentials,
   responseType: option.responseType,
   responseEncoding: option.responseEncoding,
-  transformRequest: option.transformRequest,
-  transformResponse: option.transformResponse,
+  // transformRequest: option.transformRequest,
+  // transformResponse: option.transformResponse,
 })
 
 Axios.interceptors.request.use(
@@ -38,7 +36,5 @@ Axios.interceptors.request.use(
   requestInterceptorError,
 )
 Axios.interceptors.response.use(responseInterceptor, responseInterceptorError)
-
-// initMock(Axios)
 
 export { Axios }

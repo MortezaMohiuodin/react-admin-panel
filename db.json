@@ -1,5 +1,9 @@
 {
-  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
-  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-  "profile": { "name": "typicode" }
+  "users": [
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$NO1qlD54NiwBjPJR9SJo..x0jyHtbI7N.scnAfXXvl.EFlRcqiC9m",
+      "id": 1
+    }
+  ]
 }
