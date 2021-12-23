@@ -4,5 +4,8 @@
     ["@babel/react", { "runtime": "automatic" }],
     "@babel/preset-typescript"
   ],
-  "plugins": ["@babel/plugin-proposal-class-properties"]
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "babel-plugin-styled-components"
+  ]
 }

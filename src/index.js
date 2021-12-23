@@ -1,20 +1,27 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import ReactDom from "react-dom"
+import { ThemeProvider } from "@mui/material/styles"
+import { defaultTheme } from "./configs/mui/theme"
+import CssBaseline from "@mui/material/CssBaseline"
+import RTL from "@/src/configs/mui/Rtl"
 import Login from "./pages/Login/Index"
-import Button from "./components/Button/Index"
 
-const App = () => (
-  <Router basename={process.env.REACT_APP_PUBLIC_URL}>
-    <ul>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-    </ul>
-    <Routes>
-      <Route element={<Button />} path="/" exact />
-      <Route element={<Login />} path="/login" />
-    </Routes>
-  </Router>
-)
+const App = () => {
+  return (
+    <div id="app" dir="rtl">
+      <RTL>
+        <ThemeProvider theme={defaultTheme}>
+          <CssBaseline />
+          <Router basename={process.env.REACT_APP_PUBLIC_URL}>
+            <Routes>
+              <Route element={<Login />} path="/" />
+              <Route path="*" element={<div>not found</div>} />
+            </Routes>
+          </Router>
+        </ThemeProvider>
+      </RTL>
+    </div>
+  )
+}
 
-ReactDom.render(<App />, document.getElementById("app"))
+ReactDom.render(<App />, document.getElementById("root"))

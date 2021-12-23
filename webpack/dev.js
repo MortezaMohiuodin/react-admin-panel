@@ -1,9 +1,8 @@
 const path = require("path")
 const { merge } = require("webpack-merge")
 const Dotenv = require("dotenv-webpack")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
-const common = require("./webpack.common")
+const common = require("./common")
 
 module.exports = merge(common, {
   mode: "development",
@@ -13,7 +12,7 @@ module.exports = merge(common, {
   devServer: {
     port: 3000,
     static: {
-      directory: path.join(__dirname, "public"),
+      directory: path.join(__dirname, "../public"),
     },
     historyApiFallback: true,
   },

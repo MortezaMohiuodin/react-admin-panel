@@ -8,12 +8,12 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     filename: "index.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../dist"),
     clean: true,
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./"),
+      "@": path.resolve(__dirname, "../"),
     },
     extensions: [".tsx", ".ts", ".js"],
   },
@@ -47,7 +47,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "react typescript app",
-      template: "./public/index.html",
+      template: "public/index.html",
     }),
   ].concat(isDev ? [] : [new MiniCssExtractPlugin()]),
 }
