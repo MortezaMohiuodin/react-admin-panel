@@ -4,6 +4,7 @@ import { ThemeProvider } from "@mui/material/styles"
 import { defaultTheme } from "./configs/mui/theme"
 import CssBaseline from "@mui/material/CssBaseline"
 import RTL from "@/src/configs/mui/Rtl"
+import Home from "./pages/Home/Index"
 import Login from "./pages/Login/Index"
 
 const App = () => {
@@ -14,7 +15,8 @@ const App = () => {
           <CssBaseline />
           <Router basename={process.env.REACT_APP_PUBLIC_URL}>
             <Routes>
-              <Route element={<Login />} path="/" />
+              <Route element={<Home />} path="/" />
+              <Route element={<Login />} path="/login" />
               <Route path="*" element={<div>not found</div>} />
             </Routes>
           </Router>

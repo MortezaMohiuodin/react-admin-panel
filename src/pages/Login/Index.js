@@ -1,6 +1,17 @@
-import { Card, Box, TextField, FormGroup, Button } from "@mui/material"
+import {
+  Card,
+  Box,
+  TextField,
+  FormGroup,
+  Button,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material"
+
 import { styled } from "@mui/material/styles"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+
 import { sendData } from "@/src/api/login"
 
 const Wrapper = styled(Box)`
@@ -17,6 +28,7 @@ const initFormObject = {
 }
 
 export default function Login() {
+  const navigate = useNavigate()
   const [form, setForm] = useState(initFormObject)
 
   const handleChange = (e, type) => {
@@ -35,17 +47,17 @@ export default function Login() {
     }
   }
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    sendData(form).then(function (response) {
-      console.log(response)
-    })
+    let { data } = await sendData(form)
+    const { user, accessToken } = data
+    if (accessToken) navigate("/")
   }
   return (
     <Wrapper container>
       <Card elevation={0} sx={{ minWidth: 310, maxWidth: 400, p: 2 }}>
         <form onSubmit={handleLogin}>
-          <FormGroup>
+          <FormGroup sx={{ mb: 3 }}>
             <TextField
               id="email"
               type="email"
@@ -64,16 +76,18 @@ export default function Login() {
               value={form.password}
               onChange={(e) => handleChange(e, "password")}
               inputProps={{ "aria-label": "password" }}
-              sx={{ mb: 3 }}
+              sx={{ mb: 1 }}
             />
-            <Button variant="contained" type="submit">
-              Login
-            </Button>
+            <FormControlLabel
+              control={<Checkbox />}
+              label="آیا اطلاعات ورود ذخیره شود؟"
+            />
           </FormGroup>
+          <Button variant="contained" type="submit" sx={{ width: "100%" }}>
+            Login
+          </Button>
         </form>
       </Card>
     </Wrapper>
   )
 }
-
-// TODO make login page with least features (with request and data storing)
