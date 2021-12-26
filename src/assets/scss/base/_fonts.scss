@@ -1,0 +1,121 @@
+//
+//
+// You can define path
+//
+//
+$path-yekan: "@/assets/fonts/YekanBakh" !default;
+$path-iran: "@/assets/fonts/IranSans" !default;
+
+// YekanBakh
+
+@font-face {
+  font-family: YekanBakh;
+  font-style: normal;
+  font-weight: 200;
+  font-display: fallback;
+  src: url("#{$path-yekan}/Yekan-Bakh-FaNum-200-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: YekanBakh;
+  font-style: normal;
+  font-weight: 300;
+  font-display: fallback;
+  src: url("#{$path-yekan}/Yekan-Bakh-FaNum-300-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: YekanBakh;
+  font-style: normal;
+  font-weight: normal;
+  font-display: fallback;
+  src: url("#{$path-yekan}/Yekan-Bakh-FaNum-400-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: YekanBakh;
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: url("#{$path-yekan}/Yekan-Bakh-FaNum-500-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: YekanBakh;
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
+  src: url("#{$path-yekan}/Yekan-Bakh-FaNum-600-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: YekanBakh;
+  font-style: normal;
+  font-weight: bold;
+  font-display: fallback;
+  src: url("#{$path-yekan}/Yekan-Bakh-FaNum-700-Heavy.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: YekanBakh;
+  font-style: normal;
+  font-weight: 800;
+  font-display: fallback;
+  src: url("#{$path-yekan}/Yekan-Bakh-FaNum-800-Fat.ttf") format("truetype");
+}
+
+// IranSans
+
+@font-face {
+  font-family: IranSans;
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
+  src: url("#{$path-iran}/IranSans_Bold/IRANSansWeb_Bold.eot");
+  src: url("#{$path-iran}/IranSans_Bold/IRANSansWeb_Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("#{$path-iran}/IranSans_Bold/IRANSansWeb_Bold.woff2") format("woff2"),
+    url("#{$path-iran}/IranSans_Bold/IRANSansWeb_Bold.woff") format("woff"),
+    url("#{$path-iran}/IranSans_Bold/IRANSansWeb_Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: IranSans;
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+  src: url("#{$path-iran}/IranSans_Medium/IRANSansWeb_Medium.eot");
+  src: url("#{$path-iran}/IranSans_Medium/IRANSansWeb_Medium.eot?#iefix")
+      format("embedded-opentype"),
+    url("#{$path-iran}/IranSans_Medium/IRANSansWeb_Medium.woff2")
+      format("woff2"),
+    url("#{$path-iran}/IranSans_Medium/IRANSansWeb_Medium.woff") format("woff"),
+    url("#{$path-iran}/IranSans_Medium/IRANSansWeb_Medium.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: IranSans;
+  font-style: normal;
+  font-weight: 300;
+  font-display: fallback;
+  src: url("#{$path-iran}/IranSans_Light/IRANSansWeb_Light.eot");
+  src: url("#{$path-iran}/IranSans_Light/IRANSansWeb_Light.eot?#iefix")
+      format("embedded-opentype"),
+    url("#{$path-iran}/IranSans_Light/IRANSansWeb_Light.woff2") format("woff2"),
+    url("#{$path-iran}/IranSans_Light/IRANSansWeb_Light.woff") format("woff"),
+    url("#{$path-iran}/IranSans_Light/IRANSansWeb_Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: IranSans;
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+  src: url("#{$path-iran}/IranSans_Normal/IRANSansWeb.eot");
+  src: url("#{$path-iran}/IranSans_Normal/IRANSansWeb.eot?#iefix")
+      format("embedded-opentype"),
+    url("#{$path-iran}/IranSans_Normal/IRANSansWeb.woff2") format("woff2"),
+    url("#{$path-iran}/IranSans_Normal/IRANSansWeb.woff") forat("woff"),
+    url("#{$path-iran}/IranSans_Normal/IRANSansWeb.ttf") format("truetype");
+}

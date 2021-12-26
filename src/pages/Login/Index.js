@@ -12,7 +12,7 @@ import { styled } from "@mui/material/styles"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { sendData } from "@/src/api/login"
+import { sendData } from "@/api/login"
 
 const Wrapper = styled(Box)`
   display: flex;

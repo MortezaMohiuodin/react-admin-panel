@@ -1,0 +1,37 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.sm-only{
+    @include media-breakpoint-up(sm){
+        display: none!important;
+    }
+}
+.lg-only{
+    display: none;
+    @include media-breakpoint-up(sm){
+        display: block;
+    }
+}
+
+.tx-xs{
+    font-size: var(--text-xs)!important;
+}
+.tx-sm{
+    font-size: var(--text-sm)!important;
+}
+.tx-md{
+    font-size: var(--text-md)!important;
+}
+.tx-lg{
+    font-size: var(--text-lg)!important;
+}
+.tx-xl{
+    font-size: var(--text-xl)!important;
+}

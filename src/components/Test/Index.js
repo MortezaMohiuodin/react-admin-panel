@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { useState, useMemo } from "react"
 
-import Button from "@/src/components/Button/Index"
+import Button from "@/components/Button/Index"
 
 const Form = styled.form`
   max-width: 400px;

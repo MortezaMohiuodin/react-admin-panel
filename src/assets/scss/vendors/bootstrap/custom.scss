@@ -1,0 +1,16 @@
+/* 
+---------------------------------------------
+Customizing Bootstrap
+---------------------------------------------  
+*/
+
+$grid-breakpoints : (
+    xxs : var(--breakpoint-xxs),
+    xs: var(--breakpoint-xs),
+    sm : var(--breakpoint-sm),
+    md : var(--breakpoint-md),
+    lg : var(--breakpoint-lg),
+    xl : var(--breakpoint-xl),
+    xxl : var(--breakpoint-xxl),
+    xxxl : var(--breakpoint-xxxl)
+)

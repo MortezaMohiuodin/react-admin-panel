@@ -13,7 +13,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "../"),
+      "@": path.resolve(__dirname, "../src"),
     },
     extensions: [".tsx", ".ts", ".js"],
   },
@@ -41,6 +41,10 @@ module.exports = {
       {
         test: /\.(png|jp?eg|svg|webp|)$/,
         use: ["file-loader"],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
       },
     ],
   },
