@@ -1,36 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import ReactDom from "react-dom"
-
-import { ThemeProvider } from "@mui/material/styles"
-import { defaultTheme } from "./configs/mui/theme"
-import CssBaseline from "@mui/material/CssBaseline"
-import RTL from "@/configs/mui/Rtl"
-
-import Home from "./pages/Home/Index"
-import Login from "./pages/Login/Index"
-import Dashboard from "./layouts/Dashboard/Index"
-
-import "@/assets/scss/index.scss"
-
-const App = () => {
-  return (
-    <div id="app" dir="rtl">
-      <RTL>
-        <ThemeProvider theme={defaultTheme}>
-          <CssBaseline />
-          <Router basename={process.env.REACT_APP_PUBLIC_URL}>
-            <Routes>
-              <Route element={<Dashboard />} path="/">
-                <Route element={<Home />} path="/" index />
-              </Route>
-              <Route element={<Login />} path="/login" />
-              <Route path="*" element={<div>not found</div>} />
-            </Routes>
-          </Router>
-        </ThemeProvider>
-      </RTL>
-    </div>
-  )
-}
+import App from "./App"
 
 ReactDom.render(<App />, document.getElementById("root"))
+
+// TODO find another way like context to pass props

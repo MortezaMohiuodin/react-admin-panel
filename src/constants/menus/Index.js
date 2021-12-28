@@ -6,14 +6,17 @@ const mainMenu = [
   {
     text: "داشبورد",
     icon: <HomeIcon />,
+    href: "/",
   },
   {
     text: "کاربران",
     icon: <GroupIcon />,
+    href: "/users",
   },
   {
     text: "تنظیمات",
     icon: <SettingsIcon />,
+    href: "/setting",
   },
 ]
 

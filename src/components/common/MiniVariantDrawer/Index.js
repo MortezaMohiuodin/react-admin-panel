@@ -9,6 +9,8 @@ const openedMixin = (theme) => ({
   }),
   boxSizing: "border-box",
   overflowX: "hidden",
+  backgroundColor: theme.palette.mainMenu.main,
+  color: theme.palette.mainMenu.text,
 })
 
 const closedMixin = (theme) => ({
@@ -22,6 +24,8 @@ const closedMixin = (theme) => ({
     width: `calc(${theme.spacing(7)} + 1px)`,
   },
   overflowX: "hidden",
+  backgroundColor: theme.palette.mainMenu.main,
+  color: theme.palette.mainMenu.text,
 })
 
 const MiniVariantDrawer = styled(MuiDrawer, {
@@ -31,6 +35,7 @@ const MiniVariantDrawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "no-wrap",
   boxSizing: "border-box",
+
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),

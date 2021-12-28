@@ -1,25 +1,20 @@
-import {
-  AppBar,
-  IconButton,
-  Toolbar,
-  Box,
-  Badge,
-  Typography,
-} from "@mui/material"
+import { AppBar, IconButton, Toolbar, Box, Badge } from "@mui/material"
+import { useContext } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import MailIcon from "@mui/icons-material/Mail"
+import Brightness4Icon from "@mui/icons-material/Brightness4"
 
 import AvatarDropdown from "../AvatarDropdown/Index"
-
+import { ModeContext } from "src/App"
 export default function DashboardHeader({
   open,
   handleMobileToggle,
   handleDesktopToggle,
 }) {
+  const { dark, toggleMode } = useContext(ModeContext)
   return (
     <AppBar
-      color="primary"
       sx={[
         (theme) => ({
           width: {
@@ -30,6 +25,12 @@ export default function DashboardHeader({
           ml: {
             sm: open ? theme.global.drawerWidth : theme.spacing(7),
           },
+          backgroundColor: theme.palette.header.main,
+          color: theme.palette.header.text,
+          transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
         }),
       ]}>
       <Toolbar>
@@ -38,7 +39,7 @@ export default function DashboardHeader({
           edge="start"
           color="inherit"
           aria-label="menu"
-          sx={{ mr: 2, display: { sm: "none" } }}
+          sx={{ display: { sm: "none" } }}
           onClick={handleMobileToggle}>
           <MenuIcon />
         </IconButton>
@@ -47,24 +48,29 @@ export default function DashboardHeader({
           edge="start"
           color="inherit"
           aria-label="menu"
-          sx={{ mr: 2, display: { xs: "none", sm: open ? "none" : "block" } }}
+          sx={{ display: { xs: "none", sm: open ? "none" : "block" } }}
           onClick={handleDesktopToggle}>
           <MenuIcon />
         </IconButton>
-        <Typography color="inherit" variant="h6" sx={{ typography: "en" }}>
-          Dashboard
-        </Typography>
+        <IconButton size="large" color="inherit">
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <IconButton size="large" color="inherit">
+          <Badge badgeContent={1} color="error">
+            <MailIcon />
+          </Badge>
+        </IconButton>
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ mr: "auto" }}>
-          <IconButton size="large" color="inherit">
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton size="large" color="inherit" sx={{ mr: 2 }}>
-            <Badge badgeContent={1} color="error">
-              <MailIcon />
-            </Badge>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="dark mode"
+            onClick={toggleMode}>
+            <Brightness4Icon />
           </IconButton>
           <AvatarDropdown />
         </Box>

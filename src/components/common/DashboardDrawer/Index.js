@@ -1,13 +1,13 @@
-import { useState } from "react"
+import { alpha } from "@mui/material"
 import { styled } from "@mui/material/styles"
-import { Box, Drawer, Toolbar, Divider, IconButton } from "@mui/material"
+import { Box, Drawer, Divider, IconButton } from "@mui/material"
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
-import { mainMenu } from "@/constants/menus/Index"
+import { mainMenu } from "src/constants/menus/Index"
 
-import ListIcon from "@/components/common/ListIcon/Index"
-import MiniVariantDrawer from "@/components/common/MiniVariantDrawer/Index"
+import ListIcon from "src/components/common/ListIcon/Index"
+import MiniVariantDrawer from "src/components/common/MiniVariantDrawer/Index"
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -33,19 +33,31 @@ export default function DashboardDrawer({
       }}>
       <MiniVariantDrawer
         variant="permanent"
-        sx={{
-          display: { xs: "none", sm: "block" },
-        }}
-        open={open}>
+        open={open}
+        sx={{ display: { xs: "none", sm: "block" } }}>
         <DrawerHeader>
           <IconButton
             onClick={handleDesktopToggle}
-            sx={{ display: open ? "block" : "none" }}>
-            <ChevronRightIcon />
+            sx={{ display: open ? "block" : "none", color: "inherit" }}>
+            <ChevronRightIcon sx={{ color: "inherit" }} />
           </IconButton>
         </DrawerHeader>
-        <Divider />
-        <ListIcon list={mainMenu} />
+        <Divider
+          variant="middle"
+          sx={{
+            borderColor: (theme) => alpha(theme.palette.mainMenu.text, 0.2),
+          }}
+        />
+        <ListIcon
+          list={mainMenu}
+          sx={[
+            (theme) => ({
+              "&:hover": {
+                backgroundColor: alpha(theme.palette.common.black, 0.3),
+              },
+            }),
+          ]}
+        />
       </MiniVariantDrawer>
       <Drawer
         variant="temporary"
@@ -59,11 +71,33 @@ export default function DashboardDrawer({
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: (theme) => theme.global.drawerWidth,
+            backgroundColor: (theme) => theme.palette.mainMenu.main,
+            color: (theme) => theme.palette.mainMenu.text,
           },
         }}>
-        <Toolbar />
-        <Divider />
-        <ListIcon list={mainMenu} />
+        <DrawerHeader>
+          <IconButton
+            onClick={handleMobileToggle}
+            sx={{ display: open ? "block" : "none", color: "inherit" }}>
+            <ChevronRightIcon sx={{ color: "inherit" }} />
+          </IconButton>
+        </DrawerHeader>
+        <Divider
+          variant="middle"
+          sx={{
+            borderColor: (theme) => alpha(theme.palette.mainMenu.text, 0.2),
+          }}
+        />
+        <ListIcon
+          list={mainMenu}
+          sx={[
+            (theme) => ({
+              "&:hover": {
+                backgroundColor: alpha(theme.palette.common.black, 0.3),
+              },
+            }),
+          ]}
+        />
       </Drawer>
     </Box>
   )

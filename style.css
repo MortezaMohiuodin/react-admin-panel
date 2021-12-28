@@ -1,7 +1,0 @@
-.header {
-  display: flex;
-  width: 100%;
-  min-height: 60px;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-}
