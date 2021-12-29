@@ -12,7 +12,6 @@ import {
   Box,
   Toolbar,
   Typography,
-  CircularProgress,
 } from "@mui/material"
 
 import { visuallyHidden } from "@mui/utils"
@@ -95,6 +94,11 @@ export default function CustomTable({ title, rows, columns, loading }) {
                   </TableSortLabel>
                 </TableCell>
               ))}
+              {/* {typeof onDelete === "function" && (
+                <TableCell key="action">
+                  
+                </TableCell>
+              )} */}
             </TableRow>
           </TableHead>
           <TableBody>
