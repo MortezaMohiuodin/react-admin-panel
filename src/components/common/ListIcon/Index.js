@@ -11,7 +11,6 @@ export default function ListIcon({ sx = [], list }) {
               return {
                 display: "block",
                 margin: "1rem 0",
-                backgroundColor: isActive ? "#323232" : "inherit",
                 textDecoration: "none",
                 color: "inherit",
                 marginBottom: 0,

@@ -13,6 +13,8 @@ const common = {
 
 const getTheme = (mode) => ({
   ...common,
-  mode,
+  palette: {
+    mode,
+  },
 })
 export { getTheme }

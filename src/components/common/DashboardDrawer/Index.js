@@ -43,16 +43,7 @@ export default function DashboardDrawer({
           </IconButton>
         </DrawerHeader>
         <Divider variant="middle" />
-        <ListIcon
-          list={mainMenu}
-          sx={[
-            (theme) => ({
-              "&:hover": {
-                backgroundColor: alpha(theme.palette.common.black, 0.3),
-              },
-            }),
-          ]}
-        />
+        <ListIcon list={mainMenu} />
       </MiniVariantDrawer>
       <Drawer
         variant="temporary"
@@ -76,16 +67,7 @@ export default function DashboardDrawer({
           </IconButton>
         </DrawerHeader>
         <Divider variant="middle" />
-        <ListIcon
-          list={mainMenu}
-          sx={[
-            (theme) => ({
-              "&:hover": {
-                backgroundColor: alpha(theme.palette.common.black, 0.3),
-              },
-            }),
-          ]}
-        />
+        <ListIcon list={mainMenu} />
       </Drawer>
     </Box>
   )

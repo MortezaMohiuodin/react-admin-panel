@@ -1,5 +1,6 @@
 import { AppBar, IconButton, Toolbar, Box, Badge } from "@mui/material"
 import { useContext } from "react"
+import { ThemeContext } from "src/contexts/ThemeContext/Index"
 import MenuIcon from "@mui/icons-material/Menu"
 import NotificationsIcon from "@mui/icons-material/Notifications"
 import MailIcon from "@mui/icons-material/Mail"
@@ -11,9 +12,11 @@ export default function DashboardHeader({
   handleMobileToggle,
   handleDesktopToggle,
 }) {
-  // const { toggleMode } = useContext(ThemeContext)
+  let { toggleMode } = useContext(ThemeContext)
+
   return (
     <AppBar
+      color="info"
       sx={[
         (theme) => ({
           width: {
@@ -24,8 +27,6 @@ export default function DashboardHeader({
           ml: {
             sm: open ? theme.global.drawerWidth : theme.spacing(7),
           },
-          // backgroundColor: theme.palette.header.main,
-          // color: theme.palette.header.text,
           transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -68,7 +69,7 @@ export default function DashboardHeader({
             edge="start"
             color="inherit"
             aria-label="dark mode"
-            onClick={() => console.log("afsd")}>
+            onClick={toggleMode}>
             <Brightness4Icon />
           </IconButton>
           <AvatarDropdown />
