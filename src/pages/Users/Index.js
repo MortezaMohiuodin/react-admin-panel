@@ -12,14 +12,21 @@ const columns = [
 
 export default function Users() {
   const [rows, setRows] = useState([])
-
+  const [loading, setLoading] = useState(false)
   useEffect(async () => {
+    setLoading(true)
     let { data } = await getUsers()
     setRows(data)
+    setLoading(false)
   }, [])
   return (
     <>
-      <CustomTable title="کاربران" rows={rows} columns={columns} />
+      <CustomTable
+        title="کاربران"
+        rows={rows}
+        columns={columns}
+        loading={loading}
+      />
       <Outlet />
     </>
   )

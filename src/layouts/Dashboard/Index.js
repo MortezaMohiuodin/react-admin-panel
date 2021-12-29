@@ -40,6 +40,9 @@ export default function Dashboard({ toggleMode, dark }) {
             width: "100%",
           },
           (theme) => ({
+            ...(theme.palette.mode === "light" && {
+              backgroundColor: theme.palette.grey[200],
+            }),
             width: {
               sm: open
                 ? `calc(100% - ${theme.global.drawerWidth}px)`

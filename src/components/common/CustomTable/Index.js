@@ -12,8 +12,11 @@ import {
   Box,
   Toolbar,
   Typography,
+  CircularProgress,
 } from "@mui/material"
+
 import { visuallyHidden } from "@mui/utils"
+import LoadingLayout from "src/components/LoadingLayout/Index"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -42,7 +45,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0])
 }
 
-export default function CustomTable({ title, rows, columns }) {
+export default function CustomTable({ title, rows, columns, loading }) {
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [page, setPage] = useState(0)
   const [order, setOrder] = useState("asc")
@@ -66,7 +69,8 @@ export default function CustomTable({ title, rows, columns }) {
     handleRequestSort(event, property)
   }
   return (
-    <Paper>
+    <Paper sx={{ position: "relative" }}>
+      <LoadingLayout loading={loading} />
       <Toolbar sx={{ backgroundColor: "inherit" }}>
         <Typography variant="h6">{title}</Typography>
       </Toolbar>
