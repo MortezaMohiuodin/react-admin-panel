@@ -15,7 +15,7 @@ export default function Dashboard({ toggleMode, dark }) {
     setMobileOpen(!mobileOpen)
   }
   return (
-    <Box sx={{ display: "flex", backgroundColor: "black" }}>
+    <Box sx={{ display: "flex" }}>
       <DashboardHeader
         dark={dark}
         toggleMode={toggleMode}
@@ -46,12 +46,10 @@ export default function Dashboard({ toggleMode, dark }) {
                 : `calc(100% - ${theme.spacing(7)})`,
             },
             minHeight: "100vh",
-            backgroundColor: theme.palette.mainBox.main,
             transition: theme.transitions.create("width", {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
-            color: theme.palette.mainBox.text,
           }),
         ]}>
         <Toolbar />

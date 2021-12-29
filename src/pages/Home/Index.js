@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 import { Typography } from "@mui/material"
+import { useAuth } from "src/contexts/AuthProvider/Index"
 
 export default function Home() {
+  const { user } = useAuth()
+  console.log("sdf", user)
   return (
     <div>
       <ul>

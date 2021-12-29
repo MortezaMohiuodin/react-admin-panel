@@ -20,7 +20,6 @@ const option = {
   transformRequest,
   transformResponse,
 }
-console.log(process.env.REACT_APP_API)
 const Axios = axios.create({
   baseURL: process.env.REACT_APP_API,
   timeout: option.timeout,

@@ -5,25 +5,13 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 
 import { routesData } from "src/configs/router/Index"
 
-import { ModeContext } from "src/App"
+import { ThemeContext } from "src/contexts/ThemeContext/Index"
 
 export default function CustomBreadcrumb() {
-  const { dark } = useContext(ModeContext)
   const location = useLocation()
 
   const StyledBreadcrumb = styled(Chip)(({ theme }) => {
     return {
-      backgroundColor: !dark
-        ? theme.palette.grey[200]
-        : theme.palette.grey[700],
-      height: theme.spacing(3),
-      cursor: "pointer",
-      color: !dark ? theme.palette.grey[900] : theme.palette.grey[300],
-      "&:hover , &:focus": {
-        backgroundColor: !dark
-          ? theme.palette.grey[300]
-          : theme.palette.grey[800],
-      },
       "& .MuiSvgIcon-root": {
         color: "inherit",
       },

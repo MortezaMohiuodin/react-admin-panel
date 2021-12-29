@@ -11,8 +11,7 @@ import {
 import { styled } from "@mui/material/styles"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
-import { sendData } from "src/api/login"
+import { useAuth } from "src/contexts/AuthProvider/Index"
 
 const Wrapper = styled(Box)`
   display: flex;
@@ -23,14 +22,16 @@ const Wrapper = styled(Box)`
 `
 
 const initFormObject = {
-  email: "test@gmail.com",
+  email: "mortezamohiuodin@gmail.com",
   password: "1234",
 }
 
 export default function Login() {
   const navigate = useNavigate()
+  const { user, signIn } = useAuth()
   const [form, setForm] = useState(initFormObject)
-
+  const value = useAuth()
+  console.log(value)
   const handleChange = (e, type) => {
     let value = e.target.value
     if (type === "email") {
@@ -47,11 +48,9 @@ export default function Login() {
     }
   }
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault()
-    let { data } = await sendData(form)
-    const { user, accessToken } = data
-    if (accessToken) navigate("/")
+    signIn(form, () => navigate("/"))
   }
   return (
     <Wrapper container>

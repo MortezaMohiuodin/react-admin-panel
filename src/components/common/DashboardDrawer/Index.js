@@ -42,12 +42,7 @@ export default function DashboardDrawer({
             <ChevronRightIcon sx={{ color: "inherit" }} />
           </IconButton>
         </DrawerHeader>
-        <Divider
-          variant="middle"
-          sx={{
-            borderColor: (theme) => alpha(theme.palette.mainMenu.text, 0.2),
-          }}
-        />
+        <Divider variant="middle" />
         <ListIcon
           list={mainMenu}
           sx={[
@@ -71,8 +66,6 @@ export default function DashboardDrawer({
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: (theme) => theme.global.drawerWidth,
-            backgroundColor: (theme) => theme.palette.mainMenu.main,
-            color: (theme) => theme.palette.mainMenu.text,
           },
         }}>
         <DrawerHeader>
@@ -82,12 +75,7 @@ export default function DashboardDrawer({
             <ChevronRightIcon sx={{ color: "inherit" }} />
           </IconButton>
         </DrawerHeader>
-        <Divider
-          variant="middle"
-          sx={{
-            borderColor: (theme) => alpha(theme.palette.mainMenu.text, 0.2),
-          }}
-        />
+        <Divider variant="middle" />
         <ListIcon
           list={mainMenu}
           sx={[

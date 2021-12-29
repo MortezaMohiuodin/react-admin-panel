@@ -6,13 +6,12 @@ import MailIcon from "@mui/icons-material/Mail"
 import Brightness4Icon from "@mui/icons-material/Brightness4"
 
 import AvatarDropdown from "../AvatarDropdown/Index"
-import { ModeContext } from "src/App"
 export default function DashboardHeader({
   open,
   handleMobileToggle,
   handleDesktopToggle,
 }) {
-  const { dark, toggleMode } = useContext(ModeContext)
+  // const { toggleMode } = useContext(ThemeContext)
   return (
     <AppBar
       sx={[
@@ -25,8 +24,8 @@ export default function DashboardHeader({
           ml: {
             sm: open ? theme.global.drawerWidth : theme.spacing(7),
           },
-          backgroundColor: theme.palette.header.main,
-          color: theme.palette.header.text,
+          // backgroundColor: theme.palette.header.main,
+          // color: theme.palette.header.text,
           transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -69,7 +68,7 @@ export default function DashboardHeader({
             edge="start"
             color="inherit"
             aria-label="dark mode"
-            onClick={toggleMode}>
+            onClick={() => console.log("afsd")}>
             <Brightness4Icon />
           </IconButton>
           <AvatarDropdown />
