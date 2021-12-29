@@ -3,7 +3,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogContentText,
 } from "@mui/material"
 
 export default function SimpleDialog({
@@ -21,11 +20,7 @@ export default function SimpleDialog({
       <DialogTitle sx={{ fontSize: "1rem" }} id="alert-dialog-title">
         {title}
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {children}
-        </DialogContentText>
-      </DialogContent>
+      <DialogContent>{children}</DialogContent>
       <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
         {actions}
       </DialogActions>
