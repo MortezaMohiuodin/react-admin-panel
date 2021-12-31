@@ -7,6 +7,7 @@ import HomeIcon from "@mui/icons-material/Home"
 import GroupIcon from "@mui/icons-material/Group"
 import SettingsIcon from "@mui/icons-material/Settings"
 import Users from "src/pages/Users/Index"
+import Test from "src/pages/Test/Index"
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
             element: <User />,
           },
         ],
+      },
+      {
+        path: "/test",
+        element: <Test />,
       },
       {
         path: "*",

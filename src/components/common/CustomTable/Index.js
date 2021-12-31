@@ -13,8 +13,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material"
-
 import { visuallyHidden } from "@mui/utils"
+
 import LoadingLayout from "src/components/LoadingLayout/Index"
 
 function descendingComparator(a, b, orderBy) {
@@ -94,11 +94,6 @@ export default function CustomTable({ title, rows, columns, loading }) {
                   </TableSortLabel>
                 </TableCell>
               ))}
-              {/* {typeof onDelete === "function" && (
-                <TableCell key="action">
-                  
-                </TableCell>
-              )} */}
             </TableRow>
           </TableHead>
           <TableBody>

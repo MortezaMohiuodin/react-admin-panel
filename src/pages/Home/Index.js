@@ -1,12 +1,35 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Typography } from "@mui/material"
+import { Typography, Button } from "@mui/material"
 import { useAuth } from "src/contexts/AuthProvider/Index"
+import CustomDialog from "src/components/CustomDialog/Index"
 
 export default function Home() {
   const { user } = useAuth()
-  console.log("sdf", user)
+  const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const handleConfirm = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      handleClose()
+    }, 1000)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
     <div>
+      <Button onClick={() => setOpen(true)}>open modal</Button>
+      <CustomDialog
+        open={open}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        title="modal"
+        type="warning"
+        loading={loading}>
+        test
+      </CustomDialog>
       <ul>
         <li>
           <Link to="/tacos">Tacos</Link>

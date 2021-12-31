@@ -1,160 +1,98 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
-import { deleteUser, getUsers } from "src/api/Index"
-import { Button, IconButton, Box, Typography } from "@mui/material"
-import LoadingButton from "@mui/lab/LoadingButton"
-import DeleteIcon from "@mui/icons-material/Delete"
-import AddIcon from "@mui/icons-material/Add"
+import { deleteUser, getUsers, addUser, getUser, editUser } from "src/api/Index"
+import { Button, Box } from "@mui/material"
+import { isEqual } from "lodash"
 
 import CustomTable from "src/components/common/CustomTable/Index"
-import SimpleDialog from "src/components/common/SimpleDialog/Index"
+import customTableAction from "src/hoc/customTableAction/Index"
+import AddForm from "src/pages/Users/AddForm/Index"
 
 const columns = [
   { name: "id", label: "شناسه", width: 30 },
   { name: "firstname", label: "نام" },
   { name: "lastname", label: "نام خانوادگی" },
   { name: "email", label: "ایمیل", en: true },
-  { name: "action", label: "عملیات" },
+  { name: "actions", label: "عملیات" },
 ]
+
+const user = {
+  id: 12,
+  firstname: "morteza",
+  lastname: "mohiuodin",
+  email: "test@gmail.com",
+  password: "1234",
+}
+const userInit = {
+  id: "",
+  firstname: "",
+  lastname: "",
+  email: "",
+  password: "",
+}
+
+const EnhancedTable = customTableAction(CustomTable)
 
 export default function Users() {
   const [rows, setRows] = useState([])
-  const [openModal, setOpenModal] = useState(false)
-  const [modalType, setModalType] = useState("delete")
-  const [selected, setSelected] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [modalLoading, setModalLoading] = useState(false)
-
-  const modalContent = useMemo(() => {
-    let content = {}
-    switch (modalType) {
-      case "delete":
-        content = {
-          title: "حذف کاربر",
-          onConfirm: handleDelete,
-          mainButtonTitle: "حذف",
-          type: "warning",
-          body: "آیا از حذف کابر مطمئن هستید؟",
-        }
-        break
-      case "add":
-        content = {
-          title: "افزودن کاربر",
-          onConfirm: handleAdd,
-          type: "success",
-          mainButtonTitle: "افزودن",
-          body: "آیا از حذف کابر مطمئن هستید؟",
-        }
-        break
-      default:
-        break
+  const [form, setForm] = useState(userInit)
+  const [selected, setSelected] = useState(null)
+  const updateForm = (form, reset) => {
+    if (reset) {
+      setForm(userInit)
+      return
     }
-    return content
-  }, [modalType])
-
-  const handleClose = () => {
-    setOpenModal(false)
-    setSelected(null)
-  }
-  const handleDeleteAction = (row) => {
-    setModalType("delete")
-    setSelected(row)
-    setOpenModal(true)
-  }
-  const handleAddAction = () => {
-    setModalType("add")
-    setSelected(null)
-    setOpenModal(true)
-  }
-  const handleDelete = async () => {
-    if (!selected) return
-    setModalLoading(true)
-    await deleteUser(selected.id)
-    setTimeout(() => {
-      handleClose()
-      updateTable()
-      setModalLoading(false)
-    }, 1000)
-  }
-  const handleAdd = () => {
-    console.log("add")
+    setForm(form)
   }
   const updateTable = async () => {
     setLoading(true)
     let { data } = await getUsers()
-    let rows = data.map((row) => {
-      return {
-        ...row,
-        action: <TableActions row={row} />,
-      }
-    })
-    setRows(rows)
+    setRows(data)
     setLoading(false)
+  }
+  const handleDelete = async () => {
+    let data = await deleteUser(selected.id)
+    return data
+  }
+  const handleAdd = async (form) => {
+    let data = await addUser(form)
+    console.log(data)
+  }
+  const handleEdit = async (form) => {
+    let { data } = await editUser(form)
+    return data
+  }
+  const getEditData = async (row) => {
+    let { data } = await getUser(row.id)
+    setForm(data)
+    return data
   }
   useEffect(async () => {
     updateTable()
   }, [])
 
-  const TableActions = ({ row }) => {
-    return (
-      <IconButton onClick={() => handleDeleteAction(row)}>
-        <DeleteIcon sx={{ color: "error.light" }} />
-      </IconButton>
-    )
-  }
-
-  const ActionsModal = ({ onConfirm, type, mainButtonTitle }) => {
-    return (
-      <>
-        <LoadingButton
-          onClick={onConfirm}
-          color={type}
-          variant="contained"
-          loading={modalLoading}
-          size="small">
-          {mainButtonTitle}
-        </LoadingButton>
-        <Button onClick={handleClose} autoFocus size="small">
-          لغو
-        </Button>
-      </>
-    )
-  }
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-        <Button
-          color="success"
-          variant="contained"
-          onClick={handleAddAction}
-          size="small"
-          startIcon={<AddIcon />}>
-          افزودن کاربر
-        </Button>
-      </Box>
-
-      <CustomTable
+      <EnhancedTable
         title="کاربران"
         rows={rows}
         columns={columns}
         loading={loading}
+        form={form}
+        updateForm={updateForm}
+        onUpdate={updateTable}
+        onDelete={handleDelete}
+        deleteContent={<div>آیا از حذف آیتم مطئنید؟</div>}
+        onAdd={handleAdd}
+        addContent={<AddForm form={form} updateForm={updateForm} />}
+        onEdit={handleEdit}
+        editContent={<AddForm form={form} updateForm={updateForm} edit />}
+        getEditData={getEditData}
+        updateSelected={(item) => setSelected(item)}
       />
-      <SimpleDialog
-        open={openModal}
-        onClose={handleClose}
-        title={modalContent.title}
-        actions={
-          <ActionsModal
-            onConfirm={modalContent.onConfirm}
-            type={modalContent.type}
-            mainButtonTitle={modalContent.mainButtonTitle}
-          />
-        }>
-        {modalContent.body}
-      </SimpleDialog>
+
       <Outlet />
     </>
   )
 }
-
-// Todo make a table component with add delete and edit

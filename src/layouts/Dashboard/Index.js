@@ -55,9 +55,11 @@ export default function Dashboard({ toggleMode, dark }) {
             }),
           }),
         ]}>
-        <Toolbar />
-        <CustomBreadcrumb />
-        <Outlet />
+        <Box container maxWidth="xl" sx={{ mx: "auto" }}>
+          <Toolbar />
+          <CustomBreadcrumb />
+          <Outlet />
+        </Box>
       </Box>
     </Box>
   )
