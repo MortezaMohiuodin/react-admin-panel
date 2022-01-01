@@ -9,7 +9,7 @@ import {
 } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 import { useAuth } from "src/contexts/AuthProvider/Index"
 
@@ -29,6 +29,7 @@ const init = {
 
 export default function Login() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, signIn } = useAuth()
   const [form, setForm] = useState(init)
   const handleChange = (e) => {
@@ -39,10 +40,10 @@ export default function Login() {
       [targetId]: value,
     })
   }
-
+  let from = location.state?.from?.pathname || "/"
   const handleLogin = (e) => {
     e.preventDefault()
-    signIn(form, () => navigate("/", { replace: true }))
+    signIn(form, () => navigate(from, { replace: true }))
   }
   return (
     <Wrapper container>
