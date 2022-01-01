@@ -8,7 +8,7 @@ import GroupIcon from "@mui/icons-material/Group"
 import SettingsIcon from "@mui/icons-material/Settings"
 import Users from "src/pages/Users/Index"
 import Test from "src/pages/Test/Index"
-
+import { AuthRequired } from "src/contexts/AuthProvider/Index"
 const routes = [
   {
     path: "/",
@@ -17,21 +17,25 @@ const routes = [
       {
         path: "/",
         index: true,
-        element: <Home />,
+        element: (
+          <AuthRequired>
+            <Home />
+          </AuthRequired>
+        ),
       },
       {
         path: "/users",
-        element: <Users />,
+        element: (
+          <AuthRequired>
+            <Users />
+          </AuthRequired>
+        ),
         children: [
           {
             path: ":userId",
             element: <User />,
           },
         ],
-      },
-      {
-        path: "/test",
-        element: <Test />,
       },
       {
         path: "*",
@@ -42,6 +46,10 @@ const routes = [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/test",
+    element: <Test />,
   },
 ]
 

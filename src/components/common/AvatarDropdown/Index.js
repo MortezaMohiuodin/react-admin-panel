@@ -1,4 +1,7 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+
+import { useAuth } from "src/contexts/AuthProvider/Index"
 
 import {
   IconButton,
@@ -9,10 +12,10 @@ import {
   Typography,
 } from "@mui/material"
 
-const USER_MENU = ["پروفایل", "خروج"]
-
 export default function AvatarDropdown() {
+  const navigate = useNavigate()
   const [anchorElUser, setAnchorElUser] = useState(null)
+  const { user, signOut } = useAuth()
   const openUserMenu = (e) => {
     setAnchorElUser(e.currentTarget)
   }
@@ -45,11 +48,16 @@ export default function AvatarDropdown() {
           horizontal: "right",
         }}
         sx={{ mt: "45px" }}>
-        {USER_MENU.map((link, index) => (
-          <MenuItem key={index}>
-            <Typography textAlign="center">{link}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem key="profile">
+          <Typography textAlign="center">پروفایل</Typography>
+        </MenuItem>
+        <MenuItem key="exit">
+          <Typography
+            textAlign="center"
+            onClick={() => signOut(() => navigate("/login"))}>
+            خروج
+          </Typography>
+        </MenuItem>
       </Menu>
     </>
   )

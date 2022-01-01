@@ -7,21 +7,22 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material"
-
 import { styled } from "@mui/material/styles"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+
 import { useAuth } from "src/contexts/AuthProvider/Index"
 
-const Wrapper = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-`
+const Wrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  minHeight: "100vh",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: theme.palette.grey[200],
+}))
 
-const initFormObject = {
+const init = {
   email: "mortezamohiuodin@gmail.com",
   password: "1234",
 }
@@ -29,33 +30,24 @@ const initFormObject = {
 export default function Login() {
   const navigate = useNavigate()
   const { user, signIn } = useAuth()
-  const [form, setForm] = useState(initFormObject)
-  const value = useAuth()
-  console.log(value)
-  const handleChange = (e, type) => {
+  const [form, setForm] = useState(init)
+  const handleChange = (e) => {
+    let targetId = e.target.id
     let value = e.target.value
-    if (type === "email") {
-      setForm({
-        ...form,
-        email: value,
-      })
-    }
-    if (type === "password") {
-      setForm({
-        ...form,
-        password: value,
-      })
-    }
+    setForm({
+      ...form,
+      [targetId]: value,
+    })
   }
 
   const handleLogin = (e) => {
     e.preventDefault()
-    signIn(form, () => navigate("/"))
+    signIn(form, () => navigate("/", { replace: true }))
   }
   return (
     <Wrapper container>
-      <Card elevation={0} sx={{ minWidth: 310, maxWidth: 400, p: 2 }}>
-        <form onSubmit={handleLogin}>
+      <Card elevation={1} sx={{ minWidth: 310, p: 2 }}>
+        <Box component="form" onSubmit={handleLogin}>
           <FormGroup sx={{ mb: 3 }}>
             <TextField
               id="email"
@@ -64,7 +56,7 @@ export default function Login() {
               label="ایمیل"
               value={form.email}
               inputProps={{ "aria-label": "email" }}
-              onChange={(e) => handleChange(e, "email")}
+              onChange={handleChange}
               sx={{ mb: 1 }}
             />
             <TextField
@@ -73,7 +65,7 @@ export default function Login() {
               variant="standard"
               label="رمز کاربری"
               value={form.password}
-              onChange={(e) => handleChange(e, "password")}
+              onChange={handleChange}
               inputProps={{ "aria-label": "password" }}
               sx={{ mb: 1 }}
             />
@@ -82,10 +74,10 @@ export default function Login() {
               label="آیا اطلاعات ورود ذخیره شود؟"
             />
           </FormGroup>
-          <Button variant="contained" type="submit" sx={{ width: "100%" }}>
-            Login
+          <Button variant="contained" type="submit" fullWidth>
+            ورود
           </Button>
-        </form>
+        </Box>
       </Card>
     </Wrapper>
   )

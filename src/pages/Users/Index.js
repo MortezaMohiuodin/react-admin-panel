@@ -6,7 +6,7 @@ import { isEqual } from "lodash"
 
 import CustomTable from "src/components/common/CustomTable/Index"
 import customTableAction from "src/hoc/customTableAction/Index"
-import AddForm from "src/pages/Users/AddForm/Index"
+import UserForm from "src/pages/Users/Form/Index"
 
 const columns = [
   { name: "id", label: "شناسه", width: 30 },
@@ -85,9 +85,9 @@ export default function Users() {
         onDelete={handleDelete}
         deleteContent={<div>آیا از حذف آیتم مطئنید؟</div>}
         onAdd={handleAdd}
-        addContent={<AddForm form={form} updateForm={updateForm} />}
+        addContent={<UserForm form={form} updateForm={updateForm} />}
         onEdit={handleEdit}
-        editContent={<AddForm form={form} updateForm={updateForm} edit />}
+        editContent={<UserForm form={form} updateForm={updateForm} edit />}
         getEditData={getEditData}
         updateSelected={(item) => setSelected(item)}
       />
