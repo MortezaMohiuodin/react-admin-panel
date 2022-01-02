@@ -1,3 +1,4 @@
+import { lazy } from "react"
 import { useRoutes } from "react-router-dom"
 import Dashboard from "src/layouts/Dashboard/Index"
 import Home from "src/pages/Home/Index"
@@ -5,10 +6,16 @@ import Login from "src/pages/Login/Index"
 import User from "src/pages/User/Index"
 import HomeIcon from "@mui/icons-material/Home"
 import GroupIcon from "@mui/icons-material/Group"
+import PersonIcon from "@mui/icons-material/Person"
 import SettingsIcon from "@mui/icons-material/Settings"
 import Users from "src/pages/Users/Index"
 import Test from "src/pages/Test/Index"
 import AuthRequired from "src/components/AuthRequired/Index"
+import Profile from "src/pages/Profile/Index"
+// const lazyload = async (path) => {
+//   const Component = await lazy(() => import(path))
+//   return <Component />
+// }
 const routes = [
   {
     path: "/",
@@ -32,6 +39,10 @@ const routes = [
             element: <User />,
           },
         ],
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "*",
@@ -65,6 +76,10 @@ const routesData = {
   setting: {
     label: "تنظیمات",
     icon: <SettingsIcon />,
+  },
+  profile: {
+    label: "پروفایل",
+    icon: <PersonIcon />,
   },
 }
 

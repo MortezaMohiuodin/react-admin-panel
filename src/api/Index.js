@@ -17,3 +17,6 @@ export const getUser = (id) => {
 export const editUser = (user) => {
   return Axios.put(`/users/${user.id}`, user)
 }
+export const getFullUser = (id) => {
+  return Axios.get(`/users/${id}`)
+}

@@ -12,6 +12,9 @@ import {
   Typography,
 } from "@mui/material"
 
+import AccountBoxIcon from "@mui/icons-material/AccountBox"
+import LogoutIcon from "@mui/icons-material/Logout"
+
 export default function AvatarDropdown() {
   const navigate = useNavigate()
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -24,7 +27,7 @@ export default function AvatarDropdown() {
   }
   return (
     <>
-      <Tooltip title="Open settings">
+      <Tooltip title="تنظیمات کاربری">
         <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
           <Avatar
             alt="avatar"
@@ -48,13 +51,27 @@ export default function AvatarDropdown() {
           horizontal: "right",
         }}
         sx={{ mt: "45px" }}>
-        <MenuItem key="profile">
-          <Typography textAlign="center">پروفایل</Typography>
+        <MenuItem
+          key="profile"
+          onClick={() => {
+            closeUserMenu()
+            navigate("/profile")
+          }}>
+          <AccountBoxIcon color="primary" />
+          <Typography textAlign="center" sx={{ ml: 2 }}>
+            پروفایل
+          </Typography>
         </MenuItem>
-        <MenuItem key="exit">
-          <Typography
-            textAlign="center"
-            onClick={() => signOut(() => navigate("/login"))}>
+        <MenuItem
+          key="exit"
+          onClick={() =>
+            signOut(() => {
+              closeUserMenu()
+              navigate("/login")
+            })
+          }>
+          <LogoutIcon color="error" />
+          <Typography textAlign="center" sx={{ ml: 2 }}>
             خروج
           </Typography>
         </MenuItem>

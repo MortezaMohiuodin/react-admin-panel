@@ -57,7 +57,6 @@ export default function Users() {
   }
   const handleAdd = async (form) => {
     let data = await addUser(form)
-    console.log(data)
   }
   const handleEdit = async (form) => {
     let { data } = await editUser(form)

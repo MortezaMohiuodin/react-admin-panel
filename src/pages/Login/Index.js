@@ -30,7 +30,7 @@ const init = {
 export default function Login() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, signIn } = useAuth()
+  const { signIn } = useAuth()
   const [form, setForm] = useState(init)
   const handleChange = (e) => {
     let targetId = e.target.id

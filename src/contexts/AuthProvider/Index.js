@@ -1,13 +1,14 @@
-import { useState, createContext, useContext, useEffect } from "react"
+import { useState, createContext, useContext } from "react"
 import cookie from "js-cookie"
 
 import { sendData } from "src/api/login"
-import { useNavigate, Navigate, useLocation } from "react-router-dom"
 import { getUser } from "src/api/Index"
 const AuthContext = createContext()
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [token, setToken] = useState(() => cookie.get("token"))
+  let userStore = cookie.get("user") ? JSON.parse(cookie.get("user")) : null
+  let tokenStore = cookie.get("token")
+  const [user, setUser] = useState(userStore)
+  const [token, setToken] = useState(tokenStore)
 
   const reset = () => {
     cookie.remove("user")
@@ -20,8 +21,7 @@ export default function AuthProvider({ children }) {
     let token = cookie.get("token")
     if (!user || !token) return false
     let { data } = await getUser(user.id)
-    setUser(data.user)
-    setToken(data.accessToken)
+    setUser(data)
     return { user, token }
   }
   const signIn = async (form, cb) => {

@@ -14,7 +14,6 @@ export function ThemeContextProvider({ children }) {
     return createTheme(getTheme(mode), faIR)
   }, [mode])
   let value = { mode, toggleMode }
-  console.log(theme)
   return (
     <ThemeContext.Provider value={value}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>

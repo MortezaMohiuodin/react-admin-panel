@@ -1,6 +1,6 @@
+import { Suspense } from "react"
 import { BrowserRouter as Router } from "react-router-dom"
 import CssBaseline from "@mui/material/CssBaseline"
-
 import RTL from "src/configs/mui/Rtl"
 import AuthProvider from "./contexts/AuthProvider/Index"
 import { RoutesWrapper } from "src/configs/router/Index"
@@ -15,9 +15,11 @@ const App = () => {
         <RTL>
           <ThemeContextProvider>
             <CssBaseline />
-            <Router>
-              <RoutesWrapper />
-            </Router>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Router>
+                <RoutesWrapper />
+              </Router>
+            </Suspense>
           </ThemeContextProvider>
         </RTL>
       </AuthProvider>

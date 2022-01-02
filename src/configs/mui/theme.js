@@ -15,6 +15,17 @@ const getTheme = (mode) => ({
   ...common,
   palette: {
     mode,
+    ...(mode === "light"
+      ? {
+          cardBg: {
+            main: "white",
+          },
+        }
+      : {
+          cardBg: {
+            main: "#272727",
+          },
+        }),
   },
 })
 export { getTheme }
