@@ -6,7 +6,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
 import { mainMenu } from "src/constants/menus/Index"
 
-import ListIcon from "src/components/common/ListIcon/Index"
+import ListIconMenu from "src/components/common/ListIconMenu/Index"
 import MiniVariantDrawer from "src/components/common/MiniVariantDrawer/Index"
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -43,7 +43,7 @@ export default function DashboardDrawer({
           </IconButton>
         </DrawerHeader>
         <Divider variant="middle" />
-        <ListIcon list={mainMenu} />
+        <ListIconMenu list={mainMenu} />
       </MiniVariantDrawer>
       <Drawer
         variant="temporary"
@@ -67,7 +67,7 @@ export default function DashboardDrawer({
           </IconButton>
         </DrawerHeader>
         <Divider variant="middle" />
-        <ListIcon list={mainMenu} />
+        <ListIconMenu list={mainMenu} />
       </Drawer>
     </Box>
   )
