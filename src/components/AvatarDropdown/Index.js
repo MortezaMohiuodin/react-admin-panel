@@ -28,7 +28,7 @@ export default function AvatarDropdown() {
   return (
     <>
       <Tooltip title="تنظیمات کاربری">
-        <IconButton onClick={openUserMenu} sx={{ p: 0 }}>
+        <IconButton onClick={openUserMenu} size="large" sx={{ p: 0 }}>
           <Avatar
             alt="avatar"
             src="/img/avatar-1.jpg"

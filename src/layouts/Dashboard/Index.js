@@ -1,8 +1,8 @@
 import { Box, Toolbar } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
-import DashboardHeader from "src/components/common/DashboardHeader/Index"
-import DashboardDrawer from "src/components/common/DashboardDrawer/Index"
+import DashboardHeader from "./Header/Index"
+import DashboardDrawer from "./Drawer/Index"
 import CustomBreadcrumb from "src/components/common/CustomBreadcrumb/Index"
 export default function Dashboard({ toggleMode, dark }) {
   const [mobileOpen, setMobileOpen] = useState(false)

@@ -13,6 +13,7 @@ export function ThemeContextProvider({ children }) {
   let theme = useMemo(() => {
     return createTheme(getTheme(mode), faIR)
   }, [mode])
+  console.log(theme)
   let value = { mode, toggleMode }
   return (
     <ThemeContext.Provider value={value}>
