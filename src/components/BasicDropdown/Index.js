@@ -3,11 +3,11 @@ import { useState } from "react"
 import { Menu } from "@mui/material"
 
 export function BasicDropdownAnchor({ children }) {
-  return <div>{children}</div>
+  return <>{children}</>
 }
 
 export function BasicDropdownBody({ children }) {
-  return <div>{children}</div>
+  return <>{children}</>
 }
 
 export default function AvatarDropdown({ children, id }) {
@@ -26,6 +26,7 @@ export default function AvatarDropdown({ children, id }) {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={closeDropdown}
+        onClick={closeDropdown}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -35,7 +36,7 @@ export default function AvatarDropdown({ children, id }) {
           vertical: "top",
           horizontal: "right",
         }}
-        sx={{ mt: "45px" }}>
+        sx={{ mt: "45px", "& .MuiMenu-list": { pb: 0, pt: 0 } }}>
         {children[1]}
       </Menu>
     </>

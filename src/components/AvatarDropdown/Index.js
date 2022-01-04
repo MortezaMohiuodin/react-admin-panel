@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { useAuth } from "src/contexts/AuthProvider/Index"
@@ -7,7 +6,6 @@ import {
   IconButton,
   Avatar,
   Tooltip,
-  Menu,
   MenuItem,
   Typography,
 } from "@mui/material"
@@ -15,67 +13,67 @@ import {
 import AccountBoxIcon from "@mui/icons-material/AccountBox"
 import LogoutIcon from "@mui/icons-material/Logout"
 
+import BasicDropdown, {
+  BasicDropdownAnchor,
+  BasicDropdownBody,
+} from "src/components/BasicDropdown/Index"
+
+const LIST = [
+  {
+    name: "profile",
+    label: "پروفایل",
+    icon: <AccountBoxIcon color="primary" />,
+  },
+  {
+    name: "exit",
+    label: "خروج",
+    icon: <LogoutIcon color="error" />,
+  },
+]
+
 export default function AvatarDropdown() {
   const navigate = useNavigate()
-  const [anchorElUser, setAnchorElUser] = useState(null)
-  const { user, signOut } = useAuth()
-  const openUserMenu = (e) => {
-    setAnchorElUser(e.currentTarget)
-  }
-  const closeUserMenu = () => {
-    setAnchorElUser(false)
+  const { signOut } = useAuth()
+
+  const handleClick = (name) => {
+    switch (name) {
+      case "profile":
+        navigate("/profile")
+        break
+      case "exit":
+        signOut(() => {
+          navigate("/login")
+        })
+        break
+      default:
+        break
+    }
   }
   return (
     <>
-      <Tooltip title="تنظیمات کاربری">
-        <IconButton onClick={openUserMenu} size="large" sx={{ p: 0 }}>
-          <Avatar
-            alt="avatar"
-            src="/img/avatar-1.jpg"
-            sx={{ width: 35, height: 35 }}
-          />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        id="user-appbar-menu"
-        anchorEl={anchorElUser}
-        open={Boolean(anchorElUser)}
-        onClose={closeUserMenu}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        sx={{ mt: "45px" }}>
-        <MenuItem
-          key="profile"
-          onClick={() => {
-            closeUserMenu()
-            navigate("/profile")
-          }}>
-          <AccountBoxIcon color="primary" />
-          <Typography textAlign="center" sx={{ ml: 2 }}>
-            پروفایل
-          </Typography>
-        </MenuItem>
-        <MenuItem
-          key="exit"
-          onClick={() =>
-            signOut(() => {
-              closeUserMenu()
-              navigate("/login")
-            })
-          }>
-          <LogoutIcon color="error" />
-          <Typography textAlign="center" sx={{ ml: 2 }}>
-            خروج
-          </Typography>
-        </MenuItem>
-      </Menu>
+      <BasicDropdown id="user-appbar-menu">
+        <BasicDropdownAnchor>
+          <Tooltip title="تنظیمات کاربری">
+            <IconButton size="large" sx={{ p: 0 }}>
+              <Avatar
+                alt="avatar"
+                src="/img/avatar-1.jpg"
+                sx={{ width: 35, height: 35 }}
+              />
+            </IconButton>
+          </Tooltip>
+        </BasicDropdownAnchor>
+        <BasicDropdownBody>
+          {LIST.map(({ name, icon, label }) => (
+            <MenuItem key={name} onClick={() => handleClick(name)}>
+              {icon}
+              <Typography textAlign="center" sx={{ ml: 2 }}>
+                {label}
+              </Typography>
+            </MenuItem>
+          ))}
+        </BasicDropdownBody>
+      </BasicDropdown>
     </>
   )
 }
