@@ -12,11 +12,15 @@ import {
   Box,
   Toolbar,
   Typography,
+  Checkbox,
+  IconButton,
 } from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
+import FilterListIcon from "@mui/icons-material/FilterList"
 import { visuallyHidden } from "@mui/utils"
+import { alpha } from "@mui/material"
 
 import LoadingLayout from "src/components/LoadingLayout/Index"
-import { CheckBox } from "@mui/icons-material"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -52,6 +56,7 @@ export default function CustomTable({
   loading,
   multiSelect,
   updateMultiSelect,
+  deleteAllAction,
 }) {
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [page, setPage] = useState(0)
@@ -75,15 +80,55 @@ export default function CustomTable({
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property)
   }
-  let isSelectAll = false
-  const isChecked = (row) => {
-    return false
+  let isAllSelected = rows.length > 0 && multiSelect?.length === rows.length
+
+  const handleClickCheck = (event, id) => {
+    if (typeof multiSelect === "undefined") return
+    let index = multiSelect.indexOf(id)
+    if (index > -1) {
+      let newMultiSelect = multiSelect.filter((item) => item.id === id)
+      updateMultiSelect(newMultiSelect)
+    } else {
+      updateMultiSelect([...multiSelect, id])
+    }
+  }
+  const handleClickAllCheck = (event) => {
+    if (typeof multiSelect === "undefined") return
+    if (!rows.length) return
+    if (rows.length !== multiSelect?.length) {
+      let all = rows.map(({ id }) => id)
+      updateMultiSelect(all)
+    } else {
+      updateMultiSelect([])
+    }
+  }
+  const deleteAll = () => {
+    deleteAllAction()
   }
   return (
     <Paper sx={{ position: "relative" }}>
       <LoadingLayout loading={loading} />
-      <Toolbar sx={{ backgroundColor: "inherit" }}>
-        <Typography variant="h6">{title}</Typography>
+      <Toolbar
+        sx={{
+          ...(multiSelect?.length > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity,
+              ),
+          }),
+        }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexGrow: 1,
+          }}>
+          <Typography variant="h6">{title}</Typography>
+          <IconButton onClick={deleteAll}>
+            {multiSelect?.length > 0 ? <DeleteIcon /> : <FilterListIcon />}
+          </IconButton>
+        </Box>
       </Toolbar>
       <TableContainer>
         <Table>
@@ -91,7 +136,11 @@ export default function CustomTable({
             <TableRow>
               {multiSelect && (
                 <TableCell>
-                  <CheckBox checked={isSelectAll} />
+                  <Checkbox
+                    checked={isAllSelected}
+                    onChange={handleClickAllCheck}
+                    indeterminate={!isAllSelected && multiSelect?.length > 1}
+                  />
                 </TableCell>
               )}
               {columns.map(({ name, label, width }) => (
@@ -116,27 +165,36 @@ export default function CustomTable({
           <TableBody>
             {stableSort(rows, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  {multiSelect && (
-                    <TableCell key="checkbox">
-                      <CheckBox />
-                    </TableCell>
-                  )}
-                  {columns.map(({ name, en, width }) => (
-                    <TableCell
-                      key={name}
-                      sx={{
-                        typography: en ? "en" : "",
-                        width: width || "auto",
-                      }}>
-                      {row[name]}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
+              .map((row) => {
+                let isSelected = false
+                if (typeof multiSelect !== "undefined") {
+                  isSelected = multiSelect.indexOf(row.id) > -1
+                }
+
+                return (
+                  <TableRow
+                    key={row.id}
+                    onClick={(event) => handleClickCheck(event, row.id)}
+                    selected={isSelected}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    {multiSelect && (
+                      <TableCell key="checkbox">
+                        <Checkbox checked={isSelected} />
+                      </TableCell>
+                    )}
+                    {columns.map(({ name, en, width }) => (
+                      <TableCell
+                        key={name}
+                        sx={{
+                          typography: en ? "en" : "",
+                          width: width || "auto",
+                        }}>
+                        {row[name]}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                )
+              })}
           </TableBody>
         </Table>
       </TableContainer>

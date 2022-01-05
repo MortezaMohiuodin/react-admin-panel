@@ -67,8 +67,8 @@ export default function Users() {
     return data
   }
 
-  const updateMultiSelect = (item) => {
-    setMultiSelect((prev) => [...prev, item])
+  const updateMultiSelect = (value) => {
+    setMultiSelect(value)
   }
   useEffect(async () => {
     updateTable()
@@ -100,3 +100,5 @@ export default function Users() {
     </>
   )
 }
+
+// TODO make customTableAction independent of action

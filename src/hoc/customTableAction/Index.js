@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react"
 import CustomDialog from "src/components/CustomDialog/Index"
-import { IconButton, Box, Button, Dialog } from "@mui/material"
+import { IconButton, Box, Button } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
@@ -134,13 +134,19 @@ export default function customTableAction(TableComponent) {
         افزودن کاربر
       </Button>
     )
-
+    const deleteAllAction = () => {
+      console.log("deleteAll")
+    }
     return (
       <>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
           {typeof props.onAdd === "function" && <AddButton />}
         </Box>
-        <TableComponent {...props} rows={rows} />
+        <TableComponent
+          {...props}
+          rows={rows}
+          deleteAllAction={deleteAllAction}
+        />
 
         <CustomDialog
           open={open}
