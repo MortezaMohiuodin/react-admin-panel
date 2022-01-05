@@ -75,7 +75,6 @@ export default function customTableAction(TableComponent) {
     const handleClose = () => {
       setOpen(false)
       props.updateForm({}, true)
-      setAction(null)
     }
     const handleDeleteAction = (row) => {
       setAction("delete")

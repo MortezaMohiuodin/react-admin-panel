@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import { deleteUser, getUsers, addUser, getUser, editUser } from "src/api/Index"
-import { Button, Box } from "@mui/material"
-import { isEqual } from "lodash"
 
 import CustomTable from "src/components/common/CustomTable/Index"
 import customTableAction from "src/hoc/customTableAction/Index"
@@ -38,6 +36,7 @@ export default function Users() {
   const [loading, setLoading] = useState(false)
   const [form, setForm] = useState(userInit)
   const [selected, setSelected] = useState(null)
+  const [multiSelect, setMultiSelect] = useState([])
   const updateForm = (form, reset) => {
     if (reset) {
       setForm(userInit)
@@ -67,6 +66,10 @@ export default function Users() {
     setForm(data)
     return data
   }
+
+  const updateMultiSelect = (item) => {
+    setMultiSelect((prev) => [...prev, item])
+  }
   useEffect(async () => {
     updateTable()
   }, [])
@@ -89,6 +92,8 @@ export default function Users() {
         editContent={<UserForm form={form} updateForm={updateForm} edit />}
         getEditData={getEditData}
         updateSelected={(item) => setSelected(item)}
+        multiSelect={multiSelect}
+        updateMultiSelect={updateMultiSelect}
       />
 
       <Outlet />

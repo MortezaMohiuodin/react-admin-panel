@@ -16,6 +16,7 @@ import {
 import { visuallyHidden } from "@mui/utils"
 
 import LoadingLayout from "src/components/LoadingLayout/Index"
+import { CheckBox } from "@mui/icons-material"
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -44,7 +45,14 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0])
 }
 
-export default function CustomTable({ title, rows, columns, loading }) {
+export default function CustomTable({
+  title,
+  rows,
+  columns,
+  loading,
+  multiSelect,
+  updateMultiSelect,
+}) {
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [page, setPage] = useState(0)
   const [order, setOrder] = useState("asc")
@@ -67,6 +75,10 @@ export default function CustomTable({ title, rows, columns, loading }) {
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property)
   }
+  let isSelectAll = false
+  const isChecked = (row) => {
+    return false
+  }
   return (
     <Paper sx={{ position: "relative" }}>
       <LoadingLayout loading={loading} />
@@ -77,6 +89,11 @@ export default function CustomTable({ title, rows, columns, loading }) {
         <Table>
           <TableHead>
             <TableRow>
+              {multiSelect && (
+                <TableCell>
+                  <CheckBox checked={isSelectAll} />
+                </TableCell>
+              )}
               {columns.map(({ name, label, width }) => (
                 <TableCell key={name} sx={{ width: width || "auto" }}>
                   <TableSortLabel
@@ -103,6 +120,11 @@ export default function CustomTable({ title, rows, columns, loading }) {
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  {multiSelect && (
+                    <TableCell key="checkbox">
+                      <CheckBox />
+                    </TableCell>
+                  )}
                   {columns.map(({ name, en, width }) => (
                     <TableCell
                       key={name}
