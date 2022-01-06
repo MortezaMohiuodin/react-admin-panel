@@ -125,7 +125,7 @@ export default function CustomTable({
             flexGrow: 1,
           }}>
           <Typography variant="h6">{title}</Typography>
-          <IconButton onClick={deleteAll}>
+          <IconButton onClick={deleteAll} sx={{ mr: -1 }}>
             {multiSelect?.length > 0 ? <DeleteIcon /> : <FilterListIcon />}
           </IconButton>
         </Box>
@@ -135,7 +135,7 @@ export default function CustomTable({
           <TableHead>
             <TableRow>
               {multiSelect && (
-                <TableCell>
+                <TableCell sx={{ width: 40 }}>
                   <Checkbox
                     checked={isAllSelected}
                     onChange={handleClickAllCheck}
@@ -178,7 +178,7 @@ export default function CustomTable({
                     selected={isSelected}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                     {multiSelect && (
-                      <TableCell key="checkbox">
+                      <TableCell key="checkbox" sx={{ width: 40 }}>
                         <Checkbox checked={isSelected} />
                       </TableCell>
                     )}

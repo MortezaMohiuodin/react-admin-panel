@@ -92,6 +92,7 @@
     "axios-mock-adapter": "^1.20.0",
     "chart.js": "^3.7.0",
     "faker": "^5.5.3",
+    "formik": "^2.2.9",
     "jalali-moment": "^3.3.10",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
@@ -103,6 +104,7 @@
     "shamsi-date-converter": "^1.0.5",
     "styled-components": "^5.3.3",
     "stylis": "^4.0.13",
-    "stylis-plugin-rtl": "^2.1.1"
+    "stylis-plugin-rtl": "^2.1.1",
+    "yup": "^0.32.11"
   }
 }
