@@ -5,6 +5,7 @@ import { deleteUser, getUsers, addUser, getUser, editUser } from "src/api/Index"
 import CustomTable from "src/components/common/CustomTable/Index"
 import customTableAction from "src/hoc/customTableAction/Index"
 import UserForm from "src/pages/Users/Form/Index"
+import DialogContentDelete from "./DialogContentDelete/Index"
 
 import { columns } from "./constant"
 
@@ -39,7 +40,6 @@ export default function Users() {
   useEffect(async () => {
     updateTable()
   }, [])
-  const DeleteContent = () => <div>آیا از حذف آیتم مطئنید؟</div>
   return (
     <>
       <EnhancedTable
@@ -49,7 +49,7 @@ export default function Users() {
         loading={loading}
         onUpdate={updateTable}
         onDelete={handleDelete}
-        deleteContent={DeleteContent}
+        deleteContent={DialogContentDelete}
         onAdd={handleAdd}
         addContent={UserForm}
         onEdit={handleEdit}

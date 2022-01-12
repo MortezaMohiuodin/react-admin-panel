@@ -32,19 +32,25 @@ export default function customTableAction(TableComponent) {
     const handleConfirm = (values) => {
       switch (action) {
         case "delete":
-          props.onDelete().then(() => {
+          setLoading(true)
+          props.onDelete(dialogSelected).then(() => {
+            setLoading(false)
             handleClose()
             props.onUpdate()
           })
           break
         case "add":
+          setLoading(true)
           props.onAdd(values).then(() => {
+            setLoading(false)
             handleClose()
             props.onUpdate()
           })
           break
         case "edit":
+          setLoading(true)
           props.onEdit(values).then(() => {
+            setLoading(false)
             handleClose()
             props.onUpdate()
           })

@@ -1,27 +1,6 @@
 {
   "users": [
     {
-      "firstname": "مرتضی",
-      "lastname": "ناصحی",
-      "email": "nasehi@gmail.com",
-      "password": "$2a$10$Yc1EdOv3fGC/kp7AYnxrbe2VyaJCqvlLD9kuccSPvjFMswvqTFtgG",
-      "id": 23
-    },
-    {
-      "firstname": "مصطفی",
-      "lastname": "ناصحی",
-      "email": "nasehi@gmail.com",
-      "password": "$2a$10$NO1qlD54NiwBjPJR9SJo..x0jyHtbI7N.scnAfXXvl.EFlRcqiC9m",
-      "id": 24
-    },
-    {
-      "email": "mortezamohiuodin@gmail.com",
-      "password": "$2a$10$bFSOU7ddS5bFJu49KrWzN.pwvfCqjS7Sr4fmgA/O5bfsYnDJRs.Km",
-      "firstname": "مرتضی",
-      "lastname": "محی الدین",
-      "id": 25
-    },
-    {
       "email": "fdas@gmail.com",
       "password": "$2a$10$fA/xKSneHc7P9ZzZYYL9WOYqW4dfhHbCVjS4oUP6iL44UYV/ByhuK",
       "firstname": "fdas",
