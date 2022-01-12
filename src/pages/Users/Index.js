@@ -6,52 +6,23 @@ import CustomTable from "src/components/common/CustomTable/Index"
 import customTableAction from "src/hoc/customTableAction/Index"
 import UserForm from "src/pages/Users/Form/Index"
 
-const columns = [
-  { name: "id", label: "شناسه", width: 30 },
-  { name: "firstname", label: "نام" },
-  { name: "lastname", label: "نام خانوادگی" },
-  { name: "email", label: "ایمیل", en: true },
-  { name: "actions", label: "عملیات" },
-]
-
-const user = {
-  id: 12,
-  firstname: "morteza",
-  lastname: "mohiuodin",
-  email: "test@gmail.com",
-  password: "1234",
-}
-const userInit = {
-  id: "",
-  firstname: "",
-  lastname: "",
-  email: "",
-  password: "",
-}
+import { columns } from "./constant"
 
 const EnhancedTable = customTableAction(CustomTable)
 
 export default function Users() {
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(false)
-  const [form, setForm] = useState(userInit)
-  const [selected, setSelected] = useState(null)
   const [multiSelect, setMultiSelect] = useState([])
-  const updateForm = (form, reset) => {
-    if (reset) {
-      setForm(userInit)
-      return
-    }
-    setForm(form)
-  }
+
   const updateTable = async () => {
     setLoading(true)
     let { data } = await getUsers()
     setRows(data)
     setLoading(false)
   }
-  const handleDelete = async () => {
-    let data = await deleteUser(selected.id)
+  const handleDelete = async (row) => {
+    let data = await deleteUser(row.id)
     return data
   }
   const handleAdd = async (form) => {
@@ -61,11 +32,6 @@ export default function Users() {
     let { data } = await editUser(form)
     return data
   }
-  const getEditData = async (row) => {
-    let { data } = await getUser(row.id)
-    setForm(data)
-    return data
-  }
 
   const updateMultiSelect = (value) => {
     setMultiSelect(value)
@@ -73,7 +39,7 @@ export default function Users() {
   useEffect(async () => {
     updateTable()
   }, [])
-
+  const DeleteContent = () => <div>آیا از حذف آیتم مطئنید؟</div>
   return (
     <>
       <EnhancedTable
@@ -81,17 +47,13 @@ export default function Users() {
         rows={rows}
         columns={columns}
         loading={loading}
-        form={form}
-        updateForm={updateForm}
         onUpdate={updateTable}
         onDelete={handleDelete}
-        deleteContent={<div>آیا از حذف آیتم مطئنید؟</div>}
+        deleteContent={DeleteContent}
         onAdd={handleAdd}
-        addContent={<UserForm form={form} updateForm={updateForm} />}
+        addContent={UserForm}
         onEdit={handleEdit}
-        editContent={<UserForm form={form} updateForm={updateForm} edit />}
-        getEditData={getEditData}
-        updateSelected={(item) => setSelected(item)}
+        editContent={UserForm}
         multiSelect={multiSelect}
         updateMultiSelect={updateMultiSelect}
       />

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import * as yup from "yup"
+import { useFormik } from "formik"
 
 import { Box } from "@mui/material"
 import BasicForm from "src/components/BasicForm/Index"
@@ -69,10 +70,24 @@ const fields = [
   },
 ]
 
+const validationSchema = () => {
+  let schema = {}
+  fields.forEach((field) => {
+    schema[field.name] = field.schema
+  })
+  return yup.object(schema)
+}
+
 export default function Test() {
   const [form, setForm] = useState(initForm)
   const [loading, setLoading] = useState(false)
-
+  const formik = useFormik({
+    initialValues: form,
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      handleSubmit(values)
+    },
+  })
   const handleSubmit = (values) => {
     console.log(values)
   }
@@ -81,8 +96,7 @@ export default function Test() {
     <Box sx={{ maxWidth: 600, margin: "3rem auto" }}>
       <BasicForm
         fields={fields}
-        form={form}
-        submitForm={handleSubmit}
+        formik={formik}
         loading={loading}
         updateLoading={(value) => setLoading(!!value)}
       />

@@ -105,6 +105,10 @@ export default function CustomTable({
   const deleteAll = () => {
     deleteAllAction()
   }
+  const handleCellClick = (event, row, name) => {
+    if (name === "actions") return
+    handleClickCheck(event, row.id)
+  }
   return (
     <Paper sx={{ position: "relative" }}>
       <LoadingLayout loading={loading} />
@@ -174,7 +178,6 @@ export default function CustomTable({
                 return (
                   <TableRow
                     key={row.id}
-                    onClick={(event) => handleClickCheck(event, row.id)}
                     selected={isSelected}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                     {multiSelect && (
@@ -184,6 +187,7 @@ export default function CustomTable({
                     )}
                     {columns.map(({ name, en, width }) => (
                       <TableCell
+                        onClick={(event) => handleCellClick(event, row, name)}
                         key={name}
                         sx={{
                           typography: en ? "en" : "",

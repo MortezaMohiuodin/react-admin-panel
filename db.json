@@ -20,6 +20,19 @@
       "firstname": "مرتضی",
       "lastname": "محی الدین",
       "id": 25
+    },
+    {
+      "email": "fdas@gmail.com",
+      "password": "$2a$10$fA/xKSneHc7P9ZzZYYL9WOYqW4dfhHbCVjS4oUP6iL44UYV/ByhuK",
+      "firstname": "fdas",
+      "lastname": "dsfaf",
+      "gender": "0",
+      "maritalStatus": "1",
+      "admin": true,
+      "birthdate": "",
+      "avatar": {},
+      "confirmPassword": "",
+      "id": 26
     }
   ]
 }

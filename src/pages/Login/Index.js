@@ -56,7 +56,12 @@ export default function Login() {
               variant="standard"
               label="ایمیل"
               value={form.email}
-              inputProps={{ "aria-label": "email" }}
+              inputProps={{
+                "aria-label": "email",
+                classes: {
+                  input: { fontFamily: "Roboto , ariel" },
+                },
+              }}
               onChange={handleChange}
               sx={{ mb: 1 }}
             />

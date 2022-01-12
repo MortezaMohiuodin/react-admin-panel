@@ -1,11 +1,4 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@mui/material"
-import LoadingButton from "@mui/lab/LoadingButton"
+import { Dialog, DialogTitle, DialogContent } from "@mui/material"
 import LoadingLayout from "../LoadingLayout/Index"
 
 export default function SimpleDialog({
@@ -13,38 +6,32 @@ export default function SimpleDialog({
   onClose,
   onConfirm,
   title,
-  children,
-  type,
   loading,
-  confirmLoading,
+  FormComponent,
   setting,
+  action,
+  selected,
 }) {
   const handleClose = () => {
     onClose()
   }
-  const handleConfirm = () => {
-    onConfirm()
+  const handleConfirm = (form) => {
+    onConfirm(form)
   }
+
   return (
     <Dialog open={open} onClose={handleClose} {...setting}>
       <LoadingLayout loading={loading} />
       <DialogTitle sx={{ fontSize: "1rem" }} id="alert-dialog-title">
         {title}
       </DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
-        <LoadingButton
-          onClick={handleConfirm}
-          color={type}
-          variant="contained"
-          loading={confirmLoading}
-          size="small">
-          تایید
-        </LoadingButton>
-        <Button onClick={handleClose} autoFocus size="small">
-          لغو
-        </Button>
-      </DialogActions>
+      <DialogContent>
+        <FormComponent
+          edit={action === "edit"}
+          selected={selected}
+          handleSubmit={handleConfirm}
+          handleClose={handleClose}></FormComponent>
+      </DialogContent>
     </Dialog>
   )
 }

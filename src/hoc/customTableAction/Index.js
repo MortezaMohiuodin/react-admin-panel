@@ -1,32 +1,17 @@
 import { useState, useMemo } from "react"
-import CustomDialog from "src/components/CustomDialog/Index"
 import { IconButton, Box, Button } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
 
+import CustomDialog from "src/components/CustomDialog/Index"
+
 export default function customTableAction(TableComponent) {
   return (props) => {
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [confirmLoading, setConfirmLoading] = useState(false)
     const [action, setAction] = useState(null)
-
-    let type = useMemo(() => {
-      let result = "primary"
-      switch (action) {
-        case "delete":
-          result = "warning"
-          break
-        case "add":
-          result = "primary"
-          break
-        case "edit":
-          result = "primary"
-          break
-      }
-      return result
-    }, [action])
+    const [dialogSelected, setDialogSelected] = useState(null)
 
     let dialogTitle = useMemo(() => {
       let result = ""
@@ -44,26 +29,22 @@ export default function customTableAction(TableComponent) {
       return result
     }, [action])
 
-    const handleConfirm = () => {
-      setConfirmLoading(true)
+    const handleConfirm = (values) => {
       switch (action) {
         case "delete":
           props.onDelete().then(() => {
-            setConfirmLoading(false)
             handleClose()
             props.onUpdate()
           })
           break
         case "add":
-          props.onAdd(props.addContent.props.form).then(() => {
-            setConfirmLoading(false)
+          props.onAdd(values).then(() => {
             handleClose()
             props.onUpdate()
           })
           break
         case "edit":
-          props.onEdit(props.form).then(() => {
-            setConfirmLoading(false)
+          props.onEdit(values).then(() => {
             handleClose()
             props.onUpdate()
           })
@@ -74,28 +55,21 @@ export default function customTableAction(TableComponent) {
     }
     const handleClose = () => {
       setOpen(false)
-      props.updateForm({}, true)
     }
     const handleDeleteAction = (row) => {
       setAction("delete")
-      props.updateSelected(row)
+      setDialogSelected(row)
       setOpen(true)
     }
     const handleAddAction = () => {
       setAction("add")
-      props.updateSelected(null)
+      setDialogSelected(null)
       setOpen(true)
     }
     const handleEditAction = (row) => {
-      props.updateSelected(null)
-      setLoading(true)
       setAction("edit")
+      setDialogSelected(row)
       setOpen(true)
-      props.getEditData(row).then(() => {
-        setLoading(false)
-      })
-
-      props.updateSelected(row)
     }
     const TableActions = ({ row }) => {
       const Delete = () => (
@@ -153,13 +127,16 @@ export default function customTableAction(TableComponent) {
           onClose={handleClose}
           onConfirm={handleConfirm}
           title={dialogTitle}
-          type={type}
           loading={loading}
-          confirmLoading={confirmLoading}>
-          {action === "add" && props.addContent}
-          {action === "delete" && props.deleteContent}
-          {action === "edit" && props.editContent}
-        </CustomDialog>
+          FormComponent={
+            action === "add"
+              ? props.addContent
+              : action === "delete"
+              ? props.deleteContent
+              : props.editContent
+          }
+          selected={dialogSelected}
+          action={action}></CustomDialog>
       </>
     )
   }

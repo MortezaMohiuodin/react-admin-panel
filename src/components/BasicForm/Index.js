@@ -8,12 +8,14 @@ import BasicRadio from "./BasicRadio/Index"
 import BasicSwitch from "./BasicSwitch/Index"
 import BasicDatepicker from "./BasicDatepicker/Index"
 import BasicUpload from "./BasicUpload/Index"
+
 export default function BasicForm({
   fields,
   form,
-  submitForm,
   loading,
-  updateLoading,
+  noButtons,
+  handleSubmit,
+  handleClose,
 }) {
   const validationSchema = () => {
     let schema = {}
@@ -26,10 +28,9 @@ export default function BasicForm({
     initialValues: form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      submitForm(values)
+      handleSubmit(values)
     },
   })
-
   const getFieldInput = (field) => {
     if (field?.type === "input")
       return (
@@ -105,11 +106,13 @@ export default function BasicForm({
       )
     return <TextField />
   }
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <LoadingLayout loading={loading} />
       <Grid container spacing={2}>
         {fields.map((field) => {
+          if (typeof form[field.name] === "undefined") return
           const FieldInput = getFieldInput(field)
           return (
             <Grid item xs={12} md={field.col || 6} key={field.name}>
@@ -118,20 +121,27 @@ export default function BasicForm({
           )
         })}
       </Grid>
-
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          size="medium"
-          sx={{ mx: 1 }}>
-          اعمال
-        </Button>
-        <Button variant="outlined" color="error" size="medium" sx={{ mx: 1 }}>
-          لغو
-        </Button>
-      </div>
+      {!noButtons && (
+        <div
+          style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="medium"
+            sx={{ mx: 1 }}>
+            اعمال
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            size="medium"
+            sx={{ mx: 1 }}
+            onClick={handleClose}>
+            لغو
+          </Button>
+        </div>
+      )}
     </form>
   )
 }
