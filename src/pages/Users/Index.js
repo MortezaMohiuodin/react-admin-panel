@@ -27,7 +27,8 @@ export default function Users() {
     return data
   }
   const handleAdd = async (form) => {
-    let data = await addUser(form)
+    let { cPassword, ...other } = form
+    let data = await addUser(other)
   }
   const handleEdit = async (form) => {
     let { data } = await editUser(form)

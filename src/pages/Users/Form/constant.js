@@ -6,7 +6,7 @@ export const fields = [
     label: "نام",
     type: "input",
     col: 6,
-    schema: yup.string().required("نام الزامی است"),
+    schema: yup.string(),
     inputProps: {},
   },
   {
@@ -14,7 +14,7 @@ export const fields = [
     label: "نام خانوادگی",
     type: "input",
     col: 6,
-    schema: yup.string().required("نام خانوادگی الزامی است"),
+    schema: yup.string(),
     inputProps: {},
   },
   {
@@ -22,28 +22,8 @@ export const fields = [
     label: "ایمیل",
     type: "input",
     col: 6,
-    schema: yup.string().email().required("ایمیل الزامی است"),
+    schema: yup.string().email("ایمیل وارد شده معتبر نیست"),
   },
-  {
-    name: "password",
-    label: "رمز کاربری",
-    type: "input",
-    col: 6,
-    schema: yup.string().required("ایمیل الزامی است"),
-    inputProps: {
-      type: "password",
-    },
-  },
-  // {
-  //   name: "confirmPassowrd",
-  //   label: "تکرار رمز کاربری",
-  //   type: "input",
-  //   col: 6,
-  //   schema: yup.string().required("تکرار رمز کاربری الزامی است"),
-  //   inputProps: {
-  //     type: "password",
-  //   },
-  // },
   {
     name: "gender",
     label: "جنسیت",
@@ -53,7 +33,47 @@ export const fields = [
       { label: "خانم", value: "1" },
     ],
     col: 6,
-    schema: yup.string().required("جنسیت الزامی است"),
+    schema: yup.string(),
+  },
+  {
+    name: "password",
+    label: "رمز کاربری",
+    type: "input",
+    col: 6,
+    schema: yup.string(),
+    inputProps: {
+      type: "password",
+    },
+  },
+  {
+    name: "cPassword",
+    label: "تکرار رمز کاربری",
+    type: "input",
+    col: 6,
+    schema: yup
+      .string()
+      .oneOf(
+        [yup.ref("password"), null],
+        "تکرار رمز کاربری باید برابر با رمز کاربری باشد",
+      ),
+    inputProps: {
+      type: "password",
+    },
+  },
+  {
+    name: "birthdate",
+    label: "تاریخ تولد",
+    type: "datepicker",
+    col: 6,
+    schema: yup.string(),
+    inputProps: {
+      clearable: true,
+      openTo: "day",
+    },
+  },
+  {
+    col: 6,
+    type: "empty",
   },
   {
     name: "maritalStatus",
@@ -64,22 +84,14 @@ export const fields = [
       { label: "مجرد", value: "0" },
     ],
     col: 6,
-    schema: yup.string().required("وضعیت تاهل الزامی است"),
+    schema: yup.string(),
   },
   {
     name: "admin",
     label: "نقش ادمین",
     type: "switch",
     col: 6,
-    schema: yup.boolean().required("وضعیت نقش الزامی است"),
-  },
-
-  {
-    name: "avatar",
-    label: "عکس آواتار",
-    type: "uploadImage",
-    col: 12,
-    schema: yup.string().required("عکس آواتار الزامی است").nullable(),
+    schema: yup.boolean(),
   },
 ]
 
@@ -87,20 +99,24 @@ const userCommonInit = {
   firstname: "",
   lastname: "",
   gender: "",
+  email: "",
+  birthdate: "",
   maritalStatus: "",
   admin: false,
-  birthdate: "",
   avatar: "",
-  email: "",
+  city: "",
+  province: "",
+  address: "",
 }
 
 export const userNewInit = {
   ...userCommonInit,
   password: "",
-  confirmPassword: "",
+  cPassword: "",
 }
 
 export const userEditInit = {
-  id: "",
   ...userCommonInit,
+  password: "",
+  confirmPassword: "",
 }

@@ -50,6 +50,7 @@ export default function Form({ edit, selected, handleSubmit, handleClose }) {
             updateLoading={(value) => setLoading(!!value)}
             handleSubmit={handle}
             handleClose={handleClose}
+            size="medium"
           />
         </>
       )}

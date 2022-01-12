@@ -12,10 +12,17 @@ export default function AuthRequired({ children }) {
   const location = useLocation()
   useEffect(() => {
     setLoading(true)
-    update().then((res) => {
-      setLoading(false)
-      if (!res) navigate("/login")
-    })
+    update()
+      .then((res) => {
+        setLoading(false)
+        if (!res)
+          navigate("/login", {
+            state: { from: { pathname: location.pathname } },
+          })
+      })
+      .catch(() => navigate("./login"))
+      .finally(() => setLoading(false))
+
     return () => {
       return false
     }

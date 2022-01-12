@@ -1,105 +1,20 @@
+import { Button } from "@mui/material"
 import { useState } from "react"
-import * as yup from "yup"
-import { useFormik } from "formik"
-
-import { Box } from "@mui/material"
-import BasicForm from "src/components/BasicForm/Index"
-
-const initForm = {
-  firstname: "",
-  gender: "",
-  maritalStatus: "",
-  admin: false,
-  birthdate: "",
-  avatar: "",
-}
-const fields = [
-  {
-    name: "firstname",
-    label: "نام",
-    type: "input",
-    col: 6,
-    schema: yup.string().required("نام الزامی است"),
-    inputProps: {},
-  },
-  {
-    name: "gender",
-    label: "جنسیت",
-    type: "select",
-    options: [
-      { label: "آقا", value: "male" },
-      { label: "خانم", value: "female" },
-    ],
-    col: 6,
-    schema: yup.string().required("جنسیت الزامی است"),
-  },
-  {
-    name: "maritalStatus",
-    label: "وضعیت تاهل",
-    type: "radio",
-    options: [
-      { label: "متاهل", value: "married" },
-      { label: "مجرد", value: "single" },
-    ],
-    col: 6,
-    schema: yup.string().required("وضعیت تاهل الزامی است"),
-  },
-  {
-    name: "admin",
-    label: "نقش ادمین",
-    type: "switch",
-    col: 6,
-    schema: yup.boolean().required("وضعیت نقش الزامی است"),
-  },
-  {
-    name: "birthdate",
-    label: "تاریخ تولد",
-    type: "datepicker",
-    col: 6,
-    schema: yup.string().required("تاریخ تولد الزامی است").nullable(),
-    inputProps: {
-      clearable: true,
-    },
-  },
-  {
-    name: "avatar",
-    label: "عکس آواتار",
-    type: "uploadImage",
-    col: 12,
-    schema: yup.string().required("عکس آواتار الزامی است").nullable(),
-  },
-]
-
-const validationSchema = () => {
-  let schema = {}
-  fields.forEach((field) => {
-    schema[field.name] = field.schema
-  })
-  return yup.object(schema)
-}
+import BasicSnackbar from "src/components/BasicSnackbar/Index"
 
 export default function Test() {
-  const [form, setForm] = useState(initForm)
-  const [loading, setLoading] = useState(false)
-  const formik = useFormik({
-    initialValues: form,
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      handleSubmit(values)
-    },
-  })
-  const handleSubmit = (values) => {
-    console.log(values)
-  }
-
+  const [open, setOpen] = useState(false)
   return (
-    <Box sx={{ maxWidth: 600, margin: "3rem auto" }}>
-      <BasicForm
-        fields={fields}
-        formik={formik}
-        loading={loading}
-        updateLoading={(value) => setLoading(!!value)}
+    <div>
+      <Button onClick={() => setOpen(true)}>test</Button>
+      <BasicSnackbar
+        open={open}
+        updateOpen={(value) => setOpen(value)}
+        type="success"
+        innerProps={{ autoHideDuration: 3000 }}
+        AlertProps={{ severity: "success" }}
+        message="کاربر با موفقیت ذخیره شد"
       />
-    </Box>
+    </div>
   )
 }

@@ -181,11 +181,14 @@ export default function CustomTable({
                     selected={isSelected}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                     {multiSelect && (
-                      <TableCell key="checkbox" sx={{ width: 40 }}>
+                      <TableCell
+                        key="checkbox"
+                        sx={{ width: 40 }}
+                        onClick={(event) => handleCellClick(event, row, name)}>
                         <Checkbox checked={isSelected} />
                       </TableCell>
                     )}
-                    {columns.map(({ name, en, width }) => (
+                    {columns.map(({ name, en, width, output }) => (
                       <TableCell
                         onClick={(event) => handleCellClick(event, row, name)}
                         key={name}
@@ -193,7 +196,7 @@ export default function CustomTable({
                           typography: en ? "en" : "",
                           width: width || "auto",
                         }}>
-                        {row[name]}
+                        {!output ? row[name] : output(row)}
                       </TableCell>
                     ))}
                   </TableRow>

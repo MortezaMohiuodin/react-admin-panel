@@ -12,6 +12,7 @@ export default function BasicRadio({
   handleChange,
   error,
   helperText,
+  size,
 }) {
   return (
     <FormControl component="fieldset" error={error}>
@@ -21,6 +22,7 @@ export default function BasicRadio({
         aria-label={field.name}
         name={field.name}
         value={value}
+        size={size}
         onChange={handleChange}>
         {field.options.map((option) => (
           <FormControlLabel

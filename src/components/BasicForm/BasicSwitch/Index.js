@@ -10,6 +10,7 @@ export default function BasicSwitch({
   value,
   helperText,
   handleChange,
+  size,
 }) {
   return (
     <FormControl>
@@ -20,6 +21,7 @@ export default function BasicSwitch({
               checked={value}
               onChange={handleChange}
               inputProps={{ id: field.name, name: field.name }}
+              size={size}
             />
           }
           label={field.label}

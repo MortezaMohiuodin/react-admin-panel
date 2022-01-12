@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react"
-import { IconButton, Box, Button } from "@mui/material"
+import { IconButton, Box, Button, Snackbar } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import AddIcon from "@mui/icons-material/Add"
 import EditIcon from "@mui/icons-material/Edit"
 
 import CustomDialog from "src/components/CustomDialog/Index"
+import BasicSnackbar from "src/components/BasicSnackbar/Index"
 
 export default function customTableAction(TableComponent) {
   return (props) => {
@@ -12,18 +13,23 @@ export default function customTableAction(TableComponent) {
     const [loading, setLoading] = useState(false)
     const [action, setAction] = useState(null)
     const [dialogSelected, setDialogSelected] = useState(null)
+    const [snackbar, setSnackbar] = useState(() => ({
+      open: false,
+      message: "",
+      severity: "",
+    }))
 
     let dialogTitle = useMemo(() => {
       let result = ""
       switch (action) {
         case "delete":
-          result = "حذف"
+          result = "حذف کاربر"
           break
         case "add":
-          result = "افزودن"
+          result = "افزودن کاربر"
           break
         case "edit":
-          result = "ویرایش"
+          result = "ویرایش کاربر"
           break
       }
       return result
@@ -37,6 +43,11 @@ export default function customTableAction(TableComponent) {
             setLoading(false)
             handleClose()
             props.onUpdate()
+            setSnackbar(() => ({
+              open: true,
+              message: "کاربر با موفقیت حذف شد",
+              severity: "success",
+            }))
           })
           break
         case "add":
@@ -45,6 +56,11 @@ export default function customTableAction(TableComponent) {
             setLoading(false)
             handleClose()
             props.onUpdate()
+            setSnackbar(() => ({
+              open: true,
+              message: "کاربر با موفقیت ایجاد شد",
+              severity: "success",
+            }))
           })
           break
         case "edit":
@@ -53,6 +69,11 @@ export default function customTableAction(TableComponent) {
             setLoading(false)
             handleClose()
             props.onUpdate()
+            setSnackbar(() => ({
+              open: true,
+              message: "کاربر با موفقیت ویرایش شد ",
+              severity: "success",
+            }))
           })
           break
         default:
@@ -143,6 +164,15 @@ export default function customTableAction(TableComponent) {
           }
           selected={dialogSelected}
           action={action}></CustomDialog>
+        <BasicSnackbar
+          open={snackbar.open}
+          updateOpen={(value) =>
+            setSnackbar((prev) => ({ ...prev, open: value }))
+          }
+          innerProps={{ autoHideDuration: 3000 }}
+          AlertProps={{ severity: snackbar.severity }}
+          message={snackbar.message}
+        />
       </>
     )
   }

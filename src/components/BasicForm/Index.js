@@ -16,6 +16,7 @@ export default function BasicForm({
   noButtons,
   handleSubmit,
   handleClose,
+  size,
 }) {
   const validationSchema = () => {
     let schema = {}
@@ -28,10 +29,12 @@ export default function BasicForm({
     initialValues: form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      console.log(values)
       handleSubmit(values)
     },
   })
   const getFieldInput = (field) => {
+    if (field?.type === "empty") return <div></div>
     if (field?.type === "input")
       return (
         <BasicInput
@@ -42,6 +45,7 @@ export default function BasicForm({
             formik.touched[field?.name] && Boolean(formik.errors[field?.name])
           }
           helperText={formik.touched[field?.name] && formik.errors[field?.name]}
+          size={size || "small"}
         />
       )
     if (field?.type === "select")
@@ -54,6 +58,7 @@ export default function BasicForm({
             formik.touched[field?.name] && Boolean(formik.errors[field?.name])
           }
           helperText={formik.touched[field?.name] && formik.errors[field?.name]}
+          size={size || "small"}
         />
       )
     if (field?.type === "radio")
@@ -66,6 +71,7 @@ export default function BasicForm({
             formik.touched[field?.name] && Boolean(formik.errors[field?.name])
           }
           helperText={formik.touched[field?.name] && formik.errors[field?.name]}
+          size={size || "small"}
         />
       )
     if (field?.type === "switch")
@@ -78,6 +84,7 @@ export default function BasicForm({
             formik.touched[field?.name] && Boolean(formik.errors[field?.name])
           }
           helperText={formik.touched[field?.name] && formik.errors[field?.name]}
+          size={size || "small"}
         />
       )
     if (field?.type === "datepicker")
@@ -90,6 +97,7 @@ export default function BasicForm({
             formik.touched[field?.name] && Boolean(formik.errors[field?.name])
           }
           helperText={formik.touched[field?.name] && formik.errors[field?.name]}
+          size={size || "small"}
         />
       )
     if (field?.type === "uploadImage")
@@ -102,6 +110,7 @@ export default function BasicForm({
             formik.touched[field?.name] && Boolean(formik.errors[field?.name])
           }
           helperText={formik.touched[field?.name] && formik.errors[field?.name]}
+          size={size || "small"}
         />
       )
     return <TextField />
@@ -111,11 +120,17 @@ export default function BasicForm({
     <form onSubmit={formik.handleSubmit}>
       <LoadingLayout loading={loading} />
       <Grid container spacing={2}>
-        {fields.map((field) => {
-          if (typeof form[field.name] === "undefined") return
+        {fields.map((field, index) => {
+          if (typeof form[field.name] === "undefined" && field.type !== "empty")
+            return
           const FieldInput = getFieldInput(field)
           return (
-            <Grid item xs={12} md={field.col || 6} key={field.name}>
+            <Grid
+              item
+              align={field.align || ""}
+              xs={12}
+              md={field.col || 6}
+              key={field.name || index}>
               {FieldInput}
             </Grid>
           )
@@ -123,7 +138,7 @@ export default function BasicForm({
       </Grid>
       {!noButtons && (
         <div
-          style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
+          style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
           <Button
             type="submit"
             variant="contained"

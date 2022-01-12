@@ -49,7 +49,9 @@ export default function BasicUpload({
   }
   return (
     <>
-      <InputLabel id={field.name}>{field.label}</InputLabel>
+      <InputLabel sx={{ mb: 2 }} id={field.name}>
+        {field.label}
+      </InputLabel>
       <AvatarWrapper>
         <Avatar
           alt="avatar"

@@ -11,6 +11,7 @@ export default function Input({
   error,
   handleChange,
   helperText,
+  size,
 }) {
   return (
     <FormControl sx={{ width: 1 }}>
@@ -25,6 +26,7 @@ export default function Input({
           name: field.name,
           id: field.name,
         }}
+        size={size}
         error={error}>
         {field.options.map((option, index) => (
           <MenuItem key={index} value={option.value}>

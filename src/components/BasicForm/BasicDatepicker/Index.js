@@ -11,6 +11,7 @@ export default function BasicDatepicker({
   value,
   helperText,
   handleChange,
+  size,
 }) {
   return (
     <FormControl sx={{ width: 1 }}>
@@ -20,7 +21,9 @@ export default function BasicDatepicker({
           label={field.label}
           value={value}
           onChange={handleChange}
-          renderInput={(params) => <TextField {...params} error={error} />}
+          renderInput={(params) => (
+            <TextField {...params} error={error} size={size} />
+          )}
           {...field.inputProps}
         />
       </LocalizationProvider>

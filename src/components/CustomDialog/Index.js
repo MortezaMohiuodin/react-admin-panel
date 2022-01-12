@@ -22,7 +22,9 @@ export default function SimpleDialog({
   return (
     <Dialog open={open} onClose={handleClose} {...setting}>
       <LoadingLayout loading={loading} />
-      <DialogTitle sx={{ fontSize: "1rem" }} id="alert-dialog-title">
+      <DialogTitle
+        sx={{ fontSize: "1.1rem", fontWeight: 500 }}
+        id="alert-dialog-title">
         {title}
       </DialogTitle>
       <DialogContent>

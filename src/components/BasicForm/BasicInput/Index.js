@@ -5,6 +5,7 @@ export default function BasicInput({
   value,
   helperText,
   handleChange,
+  size,
 }) {
   return (
     <TextField
@@ -15,6 +16,7 @@ export default function BasicInput({
       onChange={handleChange}
       error={error}
       helperText={helperText}
+      size={size}
       {...field.inputProps}
     />
   )
