@@ -41,6 +41,12 @@ export default function DashboardDrawer({
             sx={{ display: open ? "block" : "none", color: "inherit" }}>
             <ChevronRightIcon sx={{ color: "inherit" }} />
           </IconButton>
+          <img
+            src={"/img/logo.png"}
+            alt="dashboard logo"
+            style={{ width: open ? "100px" : "45px" }}
+            loading="lazy"
+          />
         </DrawerHeader>
         <Divider variant="middle" />
         <ListIconMenu list={mainMenu} />
@@ -65,6 +71,12 @@ export default function DashboardDrawer({
             sx={{ display: open ? "block" : "none", color: "inherit" }}>
             <ChevronRightIcon sx={{ color: "inherit" }} />
           </IconButton>
+          <img
+            src={"/img/logo.png"}
+            alt="dashboard logo"
+            style={{ width: open ? "100px" : "45px" }}
+            loading="lazy"
+          />
         </DrawerHeader>
         <Divider variant="middle" />
         <ListIconMenu list={mainMenu} />
