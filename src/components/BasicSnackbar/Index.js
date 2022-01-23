@@ -9,6 +9,8 @@ export default function BasicSnackbar({
   alertProps,
   innerProps,
   message,
+  duration,
+  type,
 }) {
   const [progress, setProgress] = useState(0)
   const handleClose = (event, reason) => {
@@ -34,8 +36,16 @@ export default function BasicSnackbar({
     <MuiAlert elevation={3} variant="filled" {...props} ref={ref} />
   ))
   return (
-    <Snackbar open={open} {...innerProps} onClose={handleClose}>
-      <Alert onClose={handleClose} {...alertProps} sx={{ width: "100%" }}>
+    <Snackbar
+      open={open}
+      {...innerProps}
+      onClose={handleClose}
+      autoHideDuration={duration}>
+      <Alert
+        onClose={handleClose}
+        {...alertProps}
+        severity={type}
+        sx={{ width: "100%" }}>
         {message}
       </Alert>
     </Snackbar>

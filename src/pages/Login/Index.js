@@ -1,90 +1,58 @@
-import {
-  Card,
-  Box,
-  TextField,
-  FormGroup,
-  Button,
-  Checkbox,
-  FormControlLabel,
-} from "@mui/material"
-import { styled } from "@mui/material/styles"
 import { useState } from "react"
+import { Typography, alpha } from "@mui/material"
 import { useNavigate, useLocation } from "react-router-dom"
 
+import * as styles from "./styles"
 import { useAuth } from "src/contexts/AuthProvider/Index"
-
-const Wrapper = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  minHeight: "100vh",
-  justifyContent: "center",
-  alignItems: "center",
-  backgroundColor: theme.palette.grey[200],
-}))
-
-const init = {
-  email: "mortezamohiuodin@gmail.com",
-  password: "1234",
-}
+import LoginForm from "src/components/Forms/Login/Index"
+import BasicSnackbar from "src/components/BasicSnackbar/Index"
 
 export default function Login() {
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: null,
+  })
+  const [form, setForm] = useState({})
   const navigate = useNavigate()
   const location = useLocation()
   const { signIn } = useAuth()
-  const [form, setForm] = useState(init)
-  const handleChange = (e) => {
-    let targetId = e.target.id
-    let value = e.target.value
-    setForm({
-      ...form,
-      [targetId]: value,
-    })
-  }
+
   let from = location.state?.from?.pathname || "/"
-  const handleLogin = (e) => {
-    e.preventDefault()
-    signIn(form, () => navigate(from, { replace: true }))
+  const handleSubmit = async (values) => {
+    try {
+      await signIn(values, () => navigate(from, { replace: true }))
+    } catch (e) {
+      const { data, status } = e.response
+      setSnackbar({
+        open: true,
+        message: data,
+      })
+      throw new Error(e)
+    }
+  }
+  const handleUpdate = (values) => {
+    setForm(values)
   }
   return (
-    <Wrapper container>
-      <Card elevation={1} sx={{ minWidth: 310, p: 2 }}>
-        <Box component="form" onSubmit={handleLogin}>
-          <FormGroup sx={{ mb: 3 }}>
-            <TextField
-              id="email"
-              type="email"
-              variant="standard"
-              label="ایمیل"
-              value={form.email}
-              inputProps={{
-                "aria-label": "email",
-                classes: {
-                  input: { fontFamily: "Roboto , ariel" },
-                },
-              }}
-              onChange={handleChange}
-              sx={{ mb: 1 }}
-            />
-            <TextField
-              id="password"
-              type="password"
-              variant="standard"
-              label="رمز کاربری"
-              value={form.password}
-              onChange={handleChange}
-              inputProps={{ "aria-label": "password" }}
-              sx={{ mb: 1 }}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="آیا اطلاعات ورود ذخیره شود؟"
-            />
-          </FormGroup>
-          <Button variant="contained" type="submit" fullWidth>
-            ورود
-          </Button>
-        </Box>
-      </Card>
-    </Wrapper>
+    <styles.Wrapper>
+      <BasicSnackbar
+        open={snackbar.open}
+        message={snackbar.message}
+        type="error"
+        duration={4000}
+        updateOpen={(value) => setSnackbar({ message: null, open: value })}
+      />
+      <styles.BackgroundImageBlur color="#0d1072" src="img/bg-login.jpg" />
+      <styles.LoginCard elevation={1}>
+        {/* <styles.LogoImg src="img/logo.png" sx={{ mb: 2 }} /> */}
+        <Typography
+          variant="h6"
+          align="center"
+          sx={{ color: "#fff", mb: 3, color: alpha("#fff", 0.9) }}>
+          صفحه ورود
+        </Typography>
+        <LoginForm handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
+      </styles.LoginCard>
+    </styles.Wrapper>
   )
 }

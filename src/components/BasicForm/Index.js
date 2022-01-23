@@ -29,7 +29,6 @@ export default function BasicForm({
     initialValues: form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values)
       handleSubmit(values)
     },
   })

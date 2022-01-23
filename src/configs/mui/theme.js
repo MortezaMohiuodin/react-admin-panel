@@ -1,3 +1,5 @@
+import { alpha } from "@mui/material"
+import { grey } from "@mui/material/colors"
 const common = {
   "@global": {
     "*::-webkit-scrollbar": {
@@ -17,16 +19,26 @@ const common = {
   },
   typography: {
     fontFamily: "YekanBakh, IranSans",
-    en: {
+    enBody1: {
       fontFamily: "Roboto , ariel",
+      fontSize: "1rem",
+      fontWeight: 400,
+      lineHeight: 1.5,
     },
   },
+  zIndex: {},
 }
 
 const getTheme = (mode) => ({
   ...common,
   palette: {
     mode,
+    white: {
+      contrastText: grey[800],
+      main: alpha("#fff", 0.8),
+      dark: alpha("#fff", 0.8),
+      light: alpha("#fff", 0.8),
+    },
     ...(mode === "light"
       ? {
           cardBg: {

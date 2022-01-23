@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material"
 import Chart from "src/components/Chart/Index"
 import DashboardCard from "src/components/DashboardCard/Index"
+import store from "src/store"
 import {
   DASHBOARD_SUMMARY_CARDS,
   DASHBOARD_SUMMARY_COUNTS,

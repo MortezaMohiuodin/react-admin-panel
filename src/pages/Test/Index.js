@@ -1,20 +1,17 @@
-import { Button } from "@mui/material"
-import { useState } from "react"
-import BasicSnackbar from "src/components/BasicSnackbar/Index"
+import { Box, Button, Container } from "@mui/material"
+import { styled } from "@mui/material/styles"
+import { fontSize } from "@mui/system"
+
+const CustomButton = styled(Button)(({ theme }) => ({
+  [theme.breakpoints.up("md")]: {
+    backgroundColor: "red",
+  },
+}))
 
 export default function Test() {
-  const [open, setOpen] = useState(false)
   return (
-    <div>
-      <Button onClick={() => setOpen(true)}>test</Button>
-      <BasicSnackbar
-        open={open}
-        updateOpen={(value) => setOpen(value)}
-        type="success"
-        innerProps={{ autoHideDuration: 3000 }}
-        AlertProps={{ severity: "success" }}
-        message="کاربر با موفقیت ذخیره شد"
-      />
-    </div>
+    <Container fixed sx={{ backgroundColor: "black" }}>
+      <CustomButton variant="contained">button</CustomButton>
+    </Container>
   )
 }
