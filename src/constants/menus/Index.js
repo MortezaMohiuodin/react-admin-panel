@@ -12,6 +12,7 @@ const mainMenu = [
     text: "کاربران",
     icon: <GroupIcon />,
     href: "/users",
+    adminRoute: true,
   },
   {
     text: "تنظیمات",

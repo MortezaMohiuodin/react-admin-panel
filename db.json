@@ -23,7 +23,7 @@
       "email": "dsaf@gmail.com",
       "birthdate": "2022-01-04T13:08:42.000Z",
       "maritalStatus": "1",
-      "admin": false,
+      "admin": true,
       "avatar": {},
       "city": "1",
       "province": "1",

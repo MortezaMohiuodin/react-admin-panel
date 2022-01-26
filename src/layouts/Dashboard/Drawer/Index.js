@@ -3,6 +3,7 @@ import { Box, Drawer, Divider, IconButton } from "@mui/material"
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 
+import { useAuth } from "src/contexts/AuthProvider/Index"
 import { mainMenu } from "src/constants/menus/Index"
 
 import ListIconMenu from "src/components/common/ListIconMenu/Index"
@@ -23,6 +24,8 @@ export default function DashboardDrawer({
   handleMobileToggle,
   handleDesktopToggle,
 }) {
+  const { isAdmin } = useAuth()
+  const userMainMenu = mainMenu.filter((item) => !item.adminRoute || isAdmin)
   return (
     <Box
       component="nav"
@@ -48,7 +51,7 @@ export default function DashboardDrawer({
           />
         </DrawerHeader>
         <Divider variant="middle" />
-        <ListIconMenu list={mainMenu} />
+        <ListIconMenu list={userMainMenu} />
       </MiniVariantDrawer>
       <Drawer
         variant="temporary"
@@ -78,7 +81,7 @@ export default function DashboardDrawer({
           />
         </DrawerHeader>
         <Divider variant="middle" />
-        <ListIconMenu list={mainMenu} />
+        <ListIconMenu list={userMainMenu} />
       </Drawer>
     </Box>
   )
