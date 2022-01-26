@@ -1,5 +1,4 @@
 import axios from "axios"
-import cookie from "js-cookie"
 
 import {
   transformRequest,
@@ -10,13 +9,10 @@ import {
   responseInterceptorError,
 } from "./setting"
 
-const token = cookie.get('token') || ''
-
 const option = {
   timeout: 5000,
   headers: {
     "X-Requested-With": "XMLHttpRequest",
-    "Authorization" : `Bearer ${token}`
   },
   withCredentials: true,
   responseType: "json",
@@ -27,7 +23,7 @@ const option = {
 const Axios = axios.create({
   baseURL: process.env.REACT_APP_API,
   timeout: option.timeout,
-  headers:option.headers,
+  headers: option.headers,
   withCredentials: option.withCredentials,
   responseType: option.responseType,
   responseEncoding: option.responseEncoding,

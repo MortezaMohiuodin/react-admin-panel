@@ -1,3 +1,5 @@
+import cookie from "js-cookie"
+
 const transformRequest = [
   function (data, headers) {
     return data
@@ -11,7 +13,12 @@ const transformResponse = [
 ]
 
 const requestInterceptorConfig = function (config) {
-  return config
+  const token = cookie.get("token") || ""
+
+  return {
+    ...config,
+    headers: { ...config.headers, Authorization: `Bearer ${token}` },
+  }
 }
 const requestInterceptorError = function (error) {
   return Promise.reject(error)
