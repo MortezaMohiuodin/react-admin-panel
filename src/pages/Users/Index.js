@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
-import { deleteUser, getUsers, addUser, getUser, editUser } from "src/api/Index"
+import { deleteUser, getUsers, addUser, getUser, editUser } from "src/api/user"
 
 import CustomTable from "src/components/common/CustomTable/Index"
 import customTableAction from "src/hoc/customTableAction/Index"

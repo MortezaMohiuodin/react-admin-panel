@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Grid, Box, Paper } from "@mui/material"
 import { useAuth } from "src/contexts/AuthProvider/Index"
-import { getFullUser } from "src/api/Index"
+import { getFullUser } from "src/api/user"
 import MainProfileBox from "src/components/MainProfileBox/Index"
 import BasicTabs from "src/components/BasicTabs/Index"
 import { TabPanel } from "src/components/BasicTabs/Index"

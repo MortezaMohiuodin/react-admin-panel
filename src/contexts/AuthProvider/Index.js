@@ -1,8 +1,8 @@
 import { useState, createContext, useContext } from "react"
 import cookie from "js-cookie"
 
-import { sendData } from "src/api/login"
-import { getUser } from "src/api/Index"
+import { doLogin } from "src/api/login"
+import { getUser } from "src/api/user"
 const AuthContext = createContext()
 export default function AuthProvider({ children }) {
   let userStore = cookie.get("user") ? JSON.parse(cookie.get("user")) : null
@@ -25,7 +25,7 @@ export default function AuthProvider({ children }) {
     return { user, token }
   }
   const signIn = async (form, cb) => {
-    let { data } = await sendData(form)
+    let { data } = await doLogin(form)
     const { user, accessToken } = data
     cookie.set("user", JSON.stringify(user), { expires: 1 })
     cookie.set("token", accessToken, { expires: 1 })

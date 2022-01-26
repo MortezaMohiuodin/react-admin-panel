@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import { useState, useEffect } from "react"
-import { getUser } from "src/api/Index"
+import { getUser } from "src/api/user"
 import BasicForm from "src/components/BasicForm/Index"
 import LoadingLayout from "src/components/LoadingLayout/Index"
 import { fields, userNewInit, userEditInit } from "./constant"
