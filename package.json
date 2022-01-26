@@ -9,7 +9,7 @@
     "test": "jest --config jest.config.js",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "fix": "eslint . --ext .js,.ts --fix",
-    "server": "json-server --watch db.json -m ./node_modules/json-server-auth --port 3004"
+    "server": "json-server --watch db.json -m ./node_modules/json-server-auth -r routes.json --port 3004"
   },
   "author": "",
   "license": "ISC",
