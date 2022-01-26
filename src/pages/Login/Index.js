@@ -19,16 +19,19 @@ export default function Login() {
 
   let from = location.state?.from?.pathname || "/"
   const handleSubmit = async (values) => {
-    try {
-      await signIn(values, () => navigate(from, { replace: true }))
-    } catch (e) {
-      const { data, status } = e.response
-      setSnackbar({
-        open: true,
-        message: data,
+    await signIn(values)
+      .then(() => {
+        navigate(from, { replace: true })
       })
-      throw new Error(e)
-    }
+      .catch((e) => {
+        console.log("error", e.response)
+        const { data, status } = e.response
+        setSnackbar({
+          open: true,
+          message: data,
+        })
+        throw new Error(e)
+      })
   }
   const handleUpdate = (values) => {
     setForm(values)
@@ -48,7 +51,7 @@ export default function Login() {
         <Typography
           variant="h6"
           align="center"
-          sx={{ color: "#fff", mb: 3, color: alpha("#fff", 0.9) }}>
+          sx={{ color: alpha("#fff", 0.9) }}>
           صفحه ورود
         </Typography>
         <LoginForm handleSubmit={handleSubmit} handleUpdate={handleUpdate} />

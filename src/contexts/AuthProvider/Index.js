@@ -25,21 +25,20 @@ export default function AuthProvider({ children }) {
     setUser(data)
     return { user: data, token }
   }
-  const signIn = async (form, cb) => {
+  const signIn = async (form) => {
     let { data } = await doLogin(form)
     const { user, accessToken } = data
     cookie.set("user", JSON.stringify(user), { expires: 1 })
     cookie.set("token", accessToken, { expires: 1 })
     setUser(user)
     setToken(accessToken)
-    cb()
   }
 
   const signOut = async (cb) => {
     reset()
     cb()
   }
-  let value = { user, token, signIn, signOut, update, isAdmin: user.admin }
+  let value = { user, token, signIn, signOut, update, isAdmin: user?.admin }
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 export function useAuth() {
