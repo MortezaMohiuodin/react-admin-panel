@@ -17,18 +17,19 @@
       "id": 27
     },
     {
-      "email": "dsaf@gmail.com",
-      "password": "$2a$10$jHchHmHGlS0zpn5QiXSEV.R.0AD6ud174GjvoMRw.r5wrAwvFQk7C",
       "firstname": "ds",
       "lastname": "fds",
       "gender": "0",
+      "email": "dsaf@gmail.com",
       "birthdate": "2022-01-04T13:08:42.000Z",
       "maritalStatus": "1",
-      "admin": true,
+      "admin": false,
       "avatar": {},
       "city": "1",
       "province": "1",
       "address": "fdasfsdaf",
+      "password": "$2a$10$MekhUXtLIHt71Jk96fA8VuDUxN4ccNxjYSsoULSvXke1hPM4qYCNO",
+      "confirmPassword": "",
       "cPassword": "1234",
       "id": 28
     },

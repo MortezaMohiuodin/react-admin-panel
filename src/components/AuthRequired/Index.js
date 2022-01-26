@@ -5,6 +5,8 @@ import { useAuth } from "src/contexts/AuthProvider/Index"
 import LoadingLayout from "../LoadingLayout/Index"
 import { Box } from "@mui/material"
 
+const adminRoutes = ["/users"]
+
 export default function AuthRequired({ children }) {
   let { update } = useAuth()
   const navigate = useNavigate()
@@ -13,12 +15,16 @@ export default function AuthRequired({ children }) {
   useEffect(() => {
     setLoading(true)
     update()
-      .then((res) => {
+      .then(({ user, token }) => {
+        let isAdminRoute = adminRoutes.indexOf(location.pathname) > -1
         setLoading(false)
-        if (!res)
+        if (!token) {
           navigate("/login", {
             state: { from: { pathname: location.pathname } },
           })
+        } else if (isAdminRoute && !user.admin) {
+          navigate("/")
+        }
       })
       .catch(() => navigate("./login"))
       .finally(() => setLoading(false))
