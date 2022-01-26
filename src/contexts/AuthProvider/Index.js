@@ -21,8 +21,9 @@ export default function AuthProvider({ children }) {
     let token = cookie.get("token")
     if (!user || !token) return false
     let { data } = await getUser(user.id)
+    cookie.set("user", JSON.stringify(data), { expires: 1 })
     setUser(data)
-    return { user, token }
+    return { user: data, token }
   }
   const signIn = async (form, cb) => {
     let { data } = await doLogin(form)
@@ -38,7 +39,7 @@ export default function AuthProvider({ children }) {
     reset()
     cb()
   }
-  let value = { user, token, signIn, signOut, update }
+  let value = { user, token, signIn, signOut, update, isAdmin: user.admin }
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 export function useAuth() {
